@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
 import './App.css';
 import Login from "./components/Login";
+import Signup from "./components/Signup";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { api } from "./services/api";
 import NavBar from "./components/NavBar";
 
-
 class App extends Component {
   constructor() {
     super();
-
     this.state = {
         user: {}
     };
   }
 
   componentDidMount() {
+    this.getUser()
+  }
+
+  getUser = () => {
     const token = localStorage.getItem("token");
     if (token) {
       // make a request to the backend and find our user
@@ -25,29 +28,6 @@ class App extends Component {
       });
     }
   }
-
-  // componentDidMount = () => {
-  //   this.getUsers()
-  // }
-  
-  // getUsers = () => {
-  //   fetch('http://localhost:3000/users', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //     Accept: 'application/json'
-  //   },
-  //   body: JSON.stringify({
-  //     user: {
-  //       username: "Abby",
-  //       password: "test2",
-  //       is_admin: "false"
-  //     }
-  //   })
-  // })
-  //   .then(r => r.json())
-  //   .then(console.log)
-  // }
 
   login = data => {
     localStorage.setItem("token", data.jwt);
@@ -59,8 +39,7 @@ class App extends Component {
     this.setState({ user: {} });
   };
   
-
-   renderPage = () => {
+  renderPage = () => {
      if (this.state.user && this.state.user.id) {
        return (
         <NavBar 
@@ -79,20 +58,18 @@ class App extends Component {
      }
    }
 
-
- 
-
   render() {
     return (
       <Router>
-      {/* <Route exact path="/" component={About} /> */}
-      
         {this.renderPage()}      
-      </Router>
+        <Route
+          exact
+          path="/signup"
+          render={props => <Signup {...props} onLogin={this.login} />} 
+        />
+        </Router>
     );
-
   }
-
 }
 
 export default App;

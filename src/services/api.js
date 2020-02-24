@@ -21,9 +21,20 @@ const getCurrentUser = () => {
   }).then(res => res.json());
 };
 
+const signup = user => 
+  fetch(`${API_ROOT}/users`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    },
+    body: JSON.stringify(user)
+  }).then(res => res.json())
+  
 export const api = {
   auth: {
     login,
-    getCurrentUser
+    getCurrentUser,
+    signup
   },
 };
