@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import { api } from "../services/api";
 import { Card, Container, Button } from 'semantic-ui-react'
 import CharityCard from "../components/CharityCard";
+import { Link } from 'react-router-dom';
 
 
 
@@ -45,7 +46,7 @@ class CharitiesContainer extends Component {
     return  this.props.charityList.map (charity => {
     return (
       <div style={{ paddingRight:"10px", paddingTop:"10px" }}>
-        <CharityCard charity={charity} />
+        <CharityCard onShowCharityDetails={this.props.onShowCharityDetails} charity={charity} />
       </div>
       )
     })
@@ -55,7 +56,7 @@ class CharitiesContainer extends Component {
     return(
       <div>
 
-        {this.props.user.is_admin ? <Button floated="right">Add New Charity / Organization</Button> : null}
+        {this.props.user.is_admin ? <Button floated="right"><Link to="/charities-add">Add New Charity / Organization</Link></Button> : null}
 
       <Container>
         <Card.Group centered itemsPerRow={3}>

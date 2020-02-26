@@ -4,6 +4,9 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import MainPage from "./components/MainPage";
 import CharitiesContainer from "./containers/CharitiesContainer";
+import CharityDetails from "./components/CharityDetails";
+import CharityCard from "./components/CharityCard";
+import CharityAddForm from "./components/CharityAddForm";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { api } from "./services/api";
 import NavBar from "./components/NavBar";
@@ -12,12 +15,13 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-        user: {},
-        allCharities: [],
-        filteredCharities: [],
-        city: ""
-        }
-    };
+      user: {},
+      allCharities: [],
+      filteredCharities: [],
+      selectedCharity: false,
+      city: ""
+    }
+  };
 
   componentDidMount() {
     this.getUser();
@@ -38,13 +42,53 @@ class App extends Component {
   getCharities = () => {
     api.charities.getCharities().then(data => {
       // this.setState({ allCharities: data }, () => console.log(this.state.allCharities[0].city))
-      this.setState({ allCharities: data })
+      if (!data.message) {
+        this.setState({ allCharities: data })
+      }
+      console.log(data)
     })
   }
 
+  addNewCharity = (charityInfo) => {
+    fetch(`http://localhost:3000/charities`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem('token')
+      },
+      body: JSON.stringify(charityInfo)
+    })
+      .then(res => res.json())
+      .then(data =>
+        this.setState(prevState => ({
+          allCharities: [...prevState.allCharities, data.charity]
+        }))
+      )
+  }
+
+  showCharityDetails = charity => {
+    this.setState({ selectedCharity: charity })
+  }
+
+  deleteCharity = (id) => {
+    fetch(`http://localhost:3000/charities/${id}`, {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem('token')
+      },
+    })
+      .then(() => this.setState(prevState => ({
+        allCharities: prevState.allCharities.filter(charity => charity.id !== id)
+      })))
+  }
+
+
   login = data => {
     localStorage.setItem("token", data.jwt);
-    this.setState({ user: data.user });
+    this.setState({ user: data.user }, this.getCharities);
   };
 
   logout = () => {
@@ -54,60 +98,76 @@ class App extends Component {
 
   changeCity = (city) => {
     if (city !== "All") {
-      this.setState({ city: city }, () => {this.listFilteredCharities()})
+      this.setState({ city: city }, () => { this.listFilteredCharities() })
     } else {
-      this.setState({ city: "" }, () => {this.listFilteredCharities()})
+      this.setState({ city: "" }, () => { this.listFilteredCharities() })
     }
   }
 
   listFilteredCharities = () => {
     const filterCharByCity = this.state.allCharities.filter(charity => charity.city.includes(this.state.city))
-      this.setState({ filteredCharities: filterCharByCity}, () => { 
-        // console.log(this.state.filteredCharities)
-        })
-    }
-  
-
-  renderPage = () => {
-     if (this.state.user && this.state.user.id) {
-       return (
-        <NavBar 
-        user={this.state.user}
-        onLogout={this.logout}
-        />
-       )
-     } else {
-       return (
-        <Route
-        exact
-        path="/login"
-        render={props => <Login {...props} onLogin={this.login} />}
-      />
-       )
-     }
-   }
+    this.setState({ filteredCharities: filterCharByCity }, () => {
+      // console.log(this.state.filteredCharities)
+    })
+  }
 
   render() {
     return (
       <Router>
-        {this.renderPage()}      
+         <NavBar
+          user={this.state.user}
+          onLogout={this.logout}
+        />
+
+        <Route
+          exact
+          path="/login"
+          render={props => <Login {...props} onLogin={this.login} />}
+        />
         <Route
           exact
           path="/signup"
-          render={props => <Signup {...props} onLogin={this.login} />} 
-        />
-        <Route 
-          path="/" 
-          exact
-          render={props => <MainPage {...props}  allCharities={this.state.allCharities} changeCity={this.changeCity}/>}
-        />
-        <Route 
-          path="/charities" 
-          exact
-          render={() => <CharitiesContainer user={this.state.user} charities={this.state.allCharities} charityList={this.state.filteredCharities}/>}
+          render={props => <Signup {...props} onLogin={this.login} />}
         />
 
-        </Router>
+        <Route
+          path="/"
+          exact
+          render={props => <MainPage {...props} allCharities={this.state.allCharities} changeCity={this.changeCity} />}
+        />
+        
+        <Route
+          path="/charities"
+          exact
+          render={() => <CharitiesContainer user={this.state.user} charities={this.state.allCharities} onShowCharityDetails={this.showCharityDetails} charityList={this.state.filteredCharities} />}
+        />
+
+        <Route
+          path="/charities-add"
+          exact
+          render={props => <CharityAddForm {...props} user={this.state.user} onAddNewCharity={this.addNewCharity}/>}
+        />
+
+        <Route
+            path="/charity-details/:id"
+            exact
+            render={props => (
+
+                <CharityDetails
+                  {...props}
+                  selectedCharity={this.state.selectedCharity}
+                  deleteCharity={this.deleteCharity}
+                />
+              )}
+            />
+
+        {/* <Route
+          path="/charities/:city"
+          exact
+          render={props => <CharityCard {...props} user={this.state.user} filteredCharities={this.filteredCharities}/>}
+        /> */}
+
+      </Router>
     );
   }
 }
