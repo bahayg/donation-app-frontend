@@ -29,7 +29,7 @@ class Login extends Component {
           this.setState({error: true});
         } else {
           this.props.onLogin(data)
-          this.props.history.push('/');
+          this.props.history.push('/home');
         }
     })
   }

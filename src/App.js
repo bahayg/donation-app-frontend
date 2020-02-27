@@ -5,8 +5,10 @@ import Signup from "./components/Signup";
 import MainPage from "./components/MainPage";
 import CharitiesContainer from "./containers/CharitiesContainer";
 import CharityDetails from "./components/CharityDetails";
+import AdminsCharitiesDetails from "./components/AdminsCharitiesDetails";
 import CharityCard from "./components/CharityCard";
 import CharityAddForm from "./components/CharityAddForm";
+import AdminProfile from "./components/AdminProfile";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { api } from "./services/api";
 import NavBar from "./components/NavBar";
@@ -19,7 +21,8 @@ class App extends Component {
       allCharities: [],
       filteredCharities: [],
       selectedCharity: false,
-      city: ""
+      city: "", 
+      adminsCharities: []
     }
   };
 
@@ -49,7 +52,20 @@ class App extends Component {
     })
   }
 
-  addNewCharity = (charityInfo) => {
+  getAdminsCharities = () => {
+    return fetch(`http://localhost:3000/users/${this.state.user.id}/charities`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem('token')
+      }
+    })
+      .then(res => res.json())
+      .then(data => this.setState({ adminsCharities: data })
+      );
+  };
+
+  addNewCharity = (charityInfo, userId) => {
     fetch(`http://localhost:3000/charities`, {
       method: "POST",
       headers: {
@@ -57,7 +73,13 @@ class App extends Component {
         Accept: "application/json",
         Authorization: localStorage.getItem('token')
       },
-      body: JSON.stringify(charityInfo)
+      body: JSON.stringify({
+        user_id: userId,
+        name: charityInfo.name,
+        image: charityInfo.image,
+        address: charityInfo.address,
+        city: charityInfo.city
+      })
     })
       .then(res => res.json())
       .then(data =>
@@ -66,6 +88,7 @@ class App extends Component {
         }))
       )
   }
+
 
   showCharityDetails = charity => {
     this.setState({ selectedCharity: charity })
@@ -117,6 +140,7 @@ class App extends Component {
          <NavBar
           user={this.state.user}
           onLogout={this.logout}
+          onGetAdminsCharities={this.getAdminsCharities}
         />
 
         <Route
@@ -131,41 +155,54 @@ class App extends Component {
         />
 
         <Route
-          path="/"
+          path="/home"
           exact
           render={props => <MainPage {...props} allCharities={this.state.allCharities} changeCity={this.changeCity} />}
         />
         
         <Route
-          path="/charities"
+          path="/charities/:city"
           exact
           render={() => <CharitiesContainer user={this.state.user} charities={this.state.allCharities} onShowCharityDetails={this.showCharityDetails} charityList={this.state.filteredCharities} />}
         />
 
         <Route
-          path="/charities-add"
+          path="/charity/add"
           exact
           render={props => <CharityAddForm {...props} user={this.state.user} onAddNewCharity={this.addNewCharity}/>}
         />
 
         <Route
-            path="/charity-details/:id"
+            path="/charities/:city/:id" 
             exact
             render={props => (
 
                 <CharityDetails
                   {...props}
                   selectedCharity={this.state.selectedCharity}
+                />
+                )}
+              />
+
+        <Route
+            path="/users/:username/charities/:id" 
+            exact
+            render={props => (
+
+                <AdminsCharitiesDetails
+                  {...props}
+                  selectedCharity={this.state.selectedCharity}
+                  user={this.state.user}
                   deleteCharity={this.deleteCharity}
                 />
-              )}
-            />
+                )}
+              />
 
-        {/* <Route
-          path="/charities/:city"
-          exact
-          render={props => <CharityCard {...props} user={this.state.user} filteredCharities={this.filteredCharities}/>}
-        /> */}
+                <Route
+                  path="/users/:username/charities"
+                  exact
+                  render={props => <AdminProfile {...props} adminsCharities={this.state.adminsCharities} onShowCharityDetails={this.showCharityDetails} />}
+                />
 
       </Router>
     );

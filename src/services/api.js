@@ -38,6 +38,17 @@ const getCharities = () => {
     }).then(res => res.json())
 }
 
+// handleCharityDelete = (id) => {
+//     return fetch(`http://localhost:3000/charities/${id}`, {
+//       method: 'DELETE',
+//       headers: {
+//         "Content-Type": "application/json",
+//         Accept: "application/json",
+//         Authorization: localStorage.getItem('token')
+//       },
+//     }).then(res=>res.json())
+//   }
+
 export const api = {
     auth: {
         login,

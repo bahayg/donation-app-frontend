@@ -26,7 +26,7 @@ class MainPage extends Component {
         const city = e.target.innerText
         // console.log(city)
         this.props.changeCity(city)
-        this.props.history.push('/charities')
+        this.props.history.push(`/charities/${city}`)
       }
 
     render () {

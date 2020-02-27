@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 
 
- class CharityCard extends Component {
+ class AdminsCharityCard extends Component {
 
     handleShowCharityDetails = () => {
         this.props.onShowCharityDetails(this.props.charity)
@@ -13,9 +13,8 @@ import { Link } from 'react-router-dom'
      render() {
          return(
       
-          
             <Card onClick={() => this.handleShowCharityDetails()}>
-                <Link to={`${this.props.charity.city}/${this.props.charity.id}`} >
+                <Link to={`charities/${this.props.charity.id}`} >
                 <Card.Content>
                     <Card.Header>{this.props.charity.name}</Card.Header>
                 </Card.Content>
@@ -29,4 +28,4 @@ import { Link } from 'react-router-dom'
      }
  }
 
- export default CharityCard
+ export default AdminsCharityCard

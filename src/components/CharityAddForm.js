@@ -9,7 +9,6 @@ class CharityAddForm extends Component {
     constructor(){
         super()
         this.state = {
-            user_id: '',
             name: '',
             image: '',
             address: '',
@@ -25,15 +24,15 @@ class CharityAddForm extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        this.props.onAddNewCharity(this.state)
-        this.props.history.push('/')
+        this.props.onAddNewCharity(this.state, this.props.user.id)
+        this.props.history.push('/home')
     }
 
 render() {
-    const { user_id, name, image, address, city } = this.state
+    const { name, image, address, city } = this.state
     return(
         <>
-        <Link to="/add-charity"/>
+        {/* <Link to="/add"/> */}
         <Header as='h1' textAlign='left' style={{ paddingLeft:"300px" }}>
                 Organization / Charity Add Form
         </Header>
