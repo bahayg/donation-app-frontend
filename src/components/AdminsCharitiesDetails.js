@@ -1,32 +1,36 @@
 import React, { Component } from 'react';
 import { Button, Header, Segment, Image, Icon, Table, Grid } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
+import { api } from "../services/api";
 
 class AdminsCharitiesDetails extends Component {
     
-    // handleCharityDelete = () => {
-    //     fetch(`http://localhost:3000/charities/${this.props.selectedCharity.id}`, {
-    //       method: 'DELETE',
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Accept: "application/json",
-    //         Authorization: localStorage.getItem('token')
-    //       },
-    //     })
-    //       .then(() => this.setState(prevState => ({
-    //         allCharities: prevState.allCharities.filter(charity => charity.id !== id)
-    //       })))
-    //       this.props.history.push(`/users/${this.props.user.username}/charities`)
-    //   }
-    
-    handleDelete = () => {
-        this.props.deleteCharity(this.props.selectedCharity.id)
-        this.props.history.push(`/users/${this.props.user.username}/charities`)
-    }  
+
+    handleDeleteCharity = () => {
+        api.charities.deleteCharity(this.props.selectedCharity.id)
+        .then((data) => {
+            // console.log(data)
+            this.props.deleteCharitySet(data.id)
+            this.props.history.push(`/users/${this.props.user.username}/charities`)
+        })
+    }
 
     // handleAddRequest = () => {
 
     // }
+
+
+    handleCharityRequests = () => {
+        return this.props.charityRequests.map(request => {
+            return (
+                <div>
+                <Table.Cell>{request.expiration_date}</Table.Cell>
+                <Table.Cell>{request.info}</Table.Cell>
+                <Table.Cell>{request.status}</Table.Cell>
+                </div>
+            )
+        })
+    }
 
     render() {
 
@@ -35,7 +39,7 @@ class AdminsCharitiesDetails extends Component {
             <>
             
              <Link to={`charities/${this.props.selectedCharity.city}/${this.props.selectedCharity.id}`} />  
-             <Button floated="right" onClick={this.handleDelete}>Delete Charity</Button> <br></br>
+             <Button floated="right" onClick={this.handleDeleteCharity}>Delete Charity</Button> <br></br>
              <Button floated="right" onClick={this.handleAddRequest}>Add Request</Button> <br></br>
              <Segment placeholder>
                 <Header as='h1' textAlign='center'>
@@ -71,14 +75,7 @@ class AdminsCharitiesDetails extends Component {
 
                 <Table.Body>
                 <Table.Row>
-                    <Table.Cell>03/01/2020</Table.Cell>
-                    <Table.Cell>Salmon, 5 lbs</Table.Cell>
-                    <Table.Cell>Open</Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                    <Table.Cell>03/11/2020</Table.Cell>
-                    <Table.Cell>Oatmeal, 10 Servings</Table.Cell>
-                    <Table.Cell>Pending</Table.Cell>
+                    {this.handleCharityRequests()}
                 </Table.Row>
                 </Table.Body>
 

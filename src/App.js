@@ -22,7 +22,8 @@ class App extends Component {
       filteredCharities: [],
       selectedCharity: false,
       city: "", 
-      adminsCharities: []
+      adminsCharities: [],
+      charityRequests: []
     }
   };
 
@@ -65,6 +66,18 @@ class App extends Component {
       );
   };
 
+  getCharityRequests = (id) => {
+    return fetch(`http://localhost:3000/users/${this.state.user.id}/charities/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem('token')
+      }
+    })
+      .then(res => res.json())
+      .then(data => this.setState({ charityRequests: data }));
+  };
+
   addNewCharity = (charityInfo, userId) => {
     fetch(`http://localhost:3000/charities`, {
       method: "POST",
@@ -94,18 +107,13 @@ class App extends Component {
     this.setState({ selectedCharity: charity })
   }
 
-  deleteCharity = (id) => {
-    fetch(`http://localhost:3000/charities/${id}`, {
-      method: 'DELETE',
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem('token')
-      },
-    })
-      .then(() => this.setState(prevState => ({
-        allCharities: prevState.allCharities.filter(charity => charity.id !== id)
-      })))
+
+  deleteCharitySet = (id) => {
+    // console.log("carity to delete id: ", id)
+     this.setState(prevState => ({
+      allCharities: prevState.allCharities.filter(charity => charity.id !== id), 
+      adminsCharities: prevState.allCharities.filter(charity => charity.id !== id)
+    }))
   }
 
 
@@ -129,9 +137,7 @@ class App extends Component {
 
   listFilteredCharities = () => {
     const filterCharByCity = this.state.allCharities.filter(charity => charity.city.includes(this.state.city))
-    this.setState({ filteredCharities: filterCharByCity }, () => {
-      // console.log(this.state.filteredCharities)
-    })
+    this.setState({ filteredCharities: filterCharByCity })
   }
 
   render() {
@@ -148,6 +154,7 @@ class App extends Component {
           path="/login"
           render={props => <Login {...props} onLogin={this.login} />}
         />
+
         <Route
           exact
           path="/signup"
@@ -175,34 +182,28 @@ class App extends Component {
         <Route
             path="/charities/:city/:id" 
             exact
-            render={props => (
-
-                <CharityDetails
-                  {...props}
-                  selectedCharity={this.state.selectedCharity}
-                />
-                )}
-              />
+            render={props => <CharityDetails {...props} selectedCharity={this.state.selectedCharity}/>}
+        />
 
         <Route
             path="/users/:username/charities/:id" 
             exact
-            render={props => (
+            render={props => (<AdminsCharitiesDetails 
+              {...props} 
+              selectedCharity={this.state.selectedCharity} 
+              user={this.state.user} 
+              deleteCharitySet={this.deleteCharitySet}
+              charityRequests={this.state.charityRequests}
+            />)}
+        />
 
-                <AdminsCharitiesDetails
-                  {...props}
-                  selectedCharity={this.state.selectedCharity}
-                  user={this.state.user}
-                  deleteCharity={this.deleteCharity}
-                />
-                )}
-              />
+        <Route
+            path="/users/:username/charities"
+            exact
+            render={props => <AdminProfile {...props} adminsCharities={this.state.adminsCharities} onShowCharityDetails={this.showCharityDetails} onGetCharityRequests={this.getCharityRequests} />}
+        />
 
-                <Route
-                  path="/users/:username/charities"
-                  exact
-                  render={props => <AdminProfile {...props} adminsCharities={this.state.adminsCharities} onShowCharityDetails={this.showCharityDetails} />}
-                />
+        
 
       </Router>
     );
