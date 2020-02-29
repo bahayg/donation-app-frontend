@@ -45,7 +45,7 @@ class CharitiesContainer extends Component {
     return  this.props.charityList.map (charity => {
     return (
       <div style={{ paddingRight:"10px", paddingTop:"10px" }}>
-        <CharityCard onShowCharityDetails={this.props.onShowCharityDetails} charity={charity} />
+        <CharityCard onShowCharityDetails={this.props.onShowCharityDetails} onGetCharityRequests={this.props.onGetCharityRequests} charity={charity} />
       </div>
       )
     })

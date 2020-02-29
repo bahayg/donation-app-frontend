@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Header, Segment, Image, Icon, Table, Grid } from 'semantic-ui-react'
+import { Button, Header, Segment, Image, Icon, Table, Grid, Popup } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 
 class CharityDetails extends Component {
@@ -39,22 +39,52 @@ class CharityDetails extends Component {
                 <Table.Row>
                     <Table.HeaderCell>Expires</Table.HeaderCell>
                     <Table.HeaderCell>Info</Table.HeaderCell>
-                    <Table.HeaderCell>Status</Table.HeaderCell>
+                    <Table.HeaderCell>Status
+                    <Popup  wide inverted trigger={<Button icon='help circle' />} >
+                        <Grid centered divided columns={3}>
+                            <Grid.Column textAlign='center'>
+                                <Header as='h4'>Open</Header>
+                                <p>
+                                Click to "open" to donate and wait for approval
+                                </p>
+                                </Grid.Column>
+                                <Grid.Column textAlign='center'>
+                                    <Header as='h4'>Pending</Header>
+                                    <p>
+                                    Another user is waiting for approval to donate, 
+                                    you can not donate
+                                    </p>
+                                    </Grid.Column>
+                                    <Grid.Column textAlign='center'>
+                                        <Header as='h4'>Closed</Header>
+                                        <p>
+                                        Another user already donated, you can not donate
+                                        </p>
+                                        </Grid.Column>
+                                </Grid>
+                                </Popup>
+                   
+                    </Table.HeaderCell>
                 </Table.Row>
                 </Table.Header>
 
                 <Table.Body>
-                <Table.Row>
-                    <Table.Cell>03/01/2020</Table.Cell>
-                    <Table.Cell>Salmon, 5 lbs</Table.Cell>
-                    <Table.Cell>Open</Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                    <Table.Cell>03/11/2020</Table.Cell>
-                    <Table.Cell>Oatmeal, 10 Servings</Table.Cell>
-                    <Table.Cell>Pending</Table.Cell>
-                </Table.Row>
-                </Table.Body>
+                
+                    {this.props.charityRequests.map(request => {
+                        return (
+                            <Table.Row>
+                            <Table.Cell>{request.expiration_date}</Table.Cell>
+                            <Table.Cell>{request.info}</Table.Cell>  
+
+                            {request.status === 'open' ? <Table.Cell positive>{request.status}</Table.Cell> : null }
+                            {request.status === 'closed' ? <Table.Cell negative>{request.status}</Table.Cell> : null }
+                            {request.status === 'pending' ? <Table.Cell warning>{request.status}</Table.Cell> : null }
+                            
+                            </Table.Row>
+                        )
+                    })}
+              
+            </Table.Body>
 
             </Table>
             </>

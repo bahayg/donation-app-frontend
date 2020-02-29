@@ -12,6 +12,7 @@ import AdminProfile from "./components/AdminProfile";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { api } from "./services/api";
 import NavBar from "./components/NavBar";
+import AddRequest from './components/AddRequest';
 
 class App extends Component {
   constructor() {
@@ -23,7 +24,8 @@ class App extends Component {
       selectedCharity: false,
       city: "", 
       adminsCharities: [],
-      charityRequests: []
+      charityRequests: [], 
+      allRequests: []
     }
   };
 
@@ -102,6 +104,35 @@ class App extends Component {
       )
   }
 
+  addRequest = (requestInfo, charityId, userId) => {
+    console.log("MODAL TRIGERED THIS")
+    fetch(`http://localhost:3000/requests`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem('token')
+      },
+      body: JSON.stringify({
+        user_id: userId,
+        charity_id: charityId,
+        expiration_date: requestInfo.expiration_date,
+        info: requestInfo.info,
+        status: requestInfo.status,
+      })
+    })
+      .then(res => res.json())
+      .then(data => 
+        this.setState(prevState => ({
+          charityRequests: [...prevState.charityRequests, data.request]
+        }))
+      )
+  }
+
+  editRequest = () => {
+
+  }
+
 
   showCharityDetails = charity => {
     this.setState({ selectedCharity: charity })
@@ -112,7 +143,7 @@ class App extends Component {
     // console.log("carity to delete id: ", id)
      this.setState(prevState => ({
       allCharities: prevState.allCharities.filter(charity => charity.id !== id), 
-      adminsCharities: prevState.allCharities.filter(charity => charity.id !== id)
+      adminsCharities: prevState.adminsCharities.filter(charity => charity.id !== id)
     }))
   }
 
@@ -170,7 +201,7 @@ class App extends Component {
         <Route
           path="/charities/:city"
           exact
-          render={() => <CharitiesContainer user={this.state.user} charities={this.state.allCharities} onShowCharityDetails={this.showCharityDetails} charityList={this.state.filteredCharities} />}
+          render={() => <CharitiesContainer user={this.state.user} charities={this.state.allCharities} onShowCharityDetails={this.showCharityDetails} charityList={this.state.filteredCharities} onGetCharityRequests={this.getCharityRequests}/>}
         />
 
         <Route
@@ -182,7 +213,7 @@ class App extends Component {
         <Route
             path="/charities/:city/:id" 
             exact
-            render={props => <CharityDetails {...props} selectedCharity={this.state.selectedCharity}/>}
+            render={props => <CharityDetails {...props} user={this.state.user} selectedCharity={this.state.selectedCharity} charityRequests={this.state.charityRequests}/>}
         />
 
         <Route
@@ -194,6 +225,8 @@ class App extends Component {
               user={this.state.user} 
               deleteCharitySet={this.deleteCharitySet}
               charityRequests={this.state.charityRequests}
+              onAddRequest={this.addRequest}
+              onEditRequest={this.editRequest}
             />)}
         />
 
@@ -202,6 +235,12 @@ class App extends Component {
             exact
             render={props => <AdminProfile {...props} adminsCharities={this.state.adminsCharities} onShowCharityDetails={this.showCharityDetails} onGetCharityRequests={this.getCharityRequests} />}
         />
+
+        {/* <Route
+          path="/users/:username/charities/:charity_id/add-request"
+          exact
+          render={props => <AddRequest {...props} user={this.state.user} selectedCharity={this.state.selectedCharity} onAddRequest={this.addRequest}/>}
+        /> */}
 
         
 

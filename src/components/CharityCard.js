@@ -6,15 +6,16 @@ import { Link } from 'react-router-dom'
 
  class CharityCard extends Component {
 
-    handleShowCharityDetails = () => {
+    handleClick = () => {
         this.props.onShowCharityDetails(this.props.charity)
+        this.props.onGetCharityRequests(this.props.charity.id)
     }
 
      render() {
          return(
       
           
-            <Card onClick={() => this.handleShowCharityDetails()}>
+            <Card onClick={() => this.handleClick() }>
                 <Link to={`${this.props.charity.city}/${this.props.charity.id}`} >
                 <Card.Content>
                     <Card.Header>{this.props.charity.name}</Card.Header>
