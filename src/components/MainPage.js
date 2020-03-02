@@ -1,8 +1,5 @@
 import React, { Component} from 'react'
-import { Button, Form, Grid, Header, Image, Segment, Dropdown, Menu} from 'semantic-ui-react'
-// import CharitiesContainer from '../containers/CharitiesContainer'
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-
+import {Header, Segment, Dropdown, Menu} from 'semantic-ui-react'
 
 class MainPage extends Component {
 
@@ -15,8 +12,7 @@ class MainPage extends Component {
             // console.log(this.props.allCharities)
             const uniq = this.props.allCharities.map(charity => charity.city).filter((v, i, a) => a.indexOf(v) === i).sort().map(city => city);
             uniq.unshift("All") 
-            //   console.log(uniq)
-            return uniq.map(city => <div className="item"><li>{city}</li></div>)
+            return uniq.map((city, index) => <div className="item" key={index}><li>{city}</li></div>)
         } else {
             return null
         }
@@ -24,7 +20,6 @@ class MainPage extends Component {
 
       handleCitySelect = (e) => {
         const city = e.target.innerText
-        // console.log(city)
         this.props.changeCity(city)
         this.props.history.push(`/charities/${city}`)
       }
@@ -36,10 +31,10 @@ class MainPage extends Component {
                 <Header as='h1' textAlign='center'>
                     Welcome to My Donation App
                     <br></br>
-                    <Header as='h3' textAlign='center'>
-                        My app will connect individuals with surplus items to local organizations and charities who are in need. 
-                    </Header>
                 </Header>
+                <p>
+                        My app will connect individuals with surplus items to local organizations and charities who are in need. 
+                    </p>
             </Segment>
 
             <Segment >
@@ -48,17 +43,15 @@ class MainPage extends Component {
                 </Header>
             </Segment>
 
-            <Menu centered vertical>
-                <Dropdown item centered text= 'Select City'>
+            <Menu  vertical>
+                <Dropdown item text= 'Select City'>
                     <Dropdown.Menu>
                         <Dropdown.Item  onClick={(e) => this.handleCitySelect(e)}>{this.uniqCities()}</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
             </Menu>
             </>
-          
         )
-
     }
 } 
 

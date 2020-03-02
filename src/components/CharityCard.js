@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import { Card, Container, Image, Button, Item, Segment } from 'semantic-ui-react'
+import { Card, Image } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-
-
 
  class CharityCard extends Component {
 
@@ -14,7 +12,6 @@ import { Link } from 'react-router-dom'
      render() {
          return(
       
-          
             <Card onClick={() => this.handleClick() }>
                 <Link to={`${this.props.charity.city}/${this.props.charity.id}`} >
                 <Card.Content>

@@ -1,6 +1,6 @@
 import React, { Component} from 'react'
 import { api } from '../services/api';
-import { Button, Form, Grid, Header, Image, Segment, Dropdown, Message, Radio } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Image, Segment, Dropdown, Message } from 'semantic-ui-react'
 
 class Signup extends Component {
   constructor() {
@@ -15,14 +15,12 @@ class Signup extends Component {
     };
   }
 
-  
   handleChange = e => {
     let newFormFields = { ...this.state.formFields, [e.target.name]: e.target.value };
     this.setState({ formFields: newFormFields });
   };
 
   handleAdminChange = (e, value) => {
-    //   console.log(value.value)
     this.setState({formFields: {...this.state.formFields, is_admin: value.value}
     })
 }

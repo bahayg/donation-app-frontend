@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
 import { Form, Button, Header } from 'semantic-ui-react'
 
 class CharityAddForm extends Component {

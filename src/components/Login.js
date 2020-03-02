@@ -53,7 +53,6 @@ class Login extends Component {
                 name="username"
                 placeholder='Username' 
                 type='username'
-                // E-mail address
                 value={this.state.formFields.username}
                 onChange={this.handleChange}
             />

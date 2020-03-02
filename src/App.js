@@ -6,13 +6,11 @@ import MainPage from "./components/MainPage";
 import CharitiesContainer from "./containers/CharitiesContainer";
 import CharityDetails from "./components/CharityDetails";
 import AdminsCharitiesDetails from "./components/AdminsCharitiesDetails";
-import CharityCard from "./components/CharityCard";
 import CharityAddForm from "./components/CharityAddForm";
 import AdminProfile from "./components/AdminProfile";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { api } from "./services/api";
 import NavBar from "./components/NavBar";
-import AddRequest from './components/AddRequest';
 import UserProfile from './components/UserProfile';
 
 class App extends Component {
@@ -284,7 +282,9 @@ class App extends Component {
         <Route
           path="/charities/:city"
           exact
-          render={() => <CharitiesContainer user={this.state.user} charities={this.state.allCharities} onShowCharityDetails={this.showCharityDetails} charityList={this.state.filteredCharities} onGetCharityRequests={this.getCharityRequests}/>}
+          render={() => (<CharitiesContainer 
+            user={this.state.user} charities={this.state.allCharities} onShowCharityDetails={this.showCharityDetails} 
+            charityList={this.state.filteredCharities} onGetCharityRequests={this.getCharityRequests}/>)}
         />
 
         <Route
@@ -296,7 +296,10 @@ class App extends Component {
         <Route
             path="/charities/:city/:id" 
             exact
-            render={props => <CharityDetails {...props} user={this.state.user} selectedCharity={this.state.selectedCharity} charityRequests={this.state.charityRequests} onEditRequestStatus={this.editRequestStatus} onEditRequestStatusAndId={this.editRequestStatusAndId}/>}
+            render={props => (<CharityDetails 
+              {...props} user={this.state.user} selectedCharity={this.state.selectedCharity} 
+              charityRequests={this.state.charityRequests} onEditRequestStatus={this.editRequestStatus} 
+              onEditRequestStatusAndId={this.editRequestStatusAndId}/>)}
         />
 
         <Route
@@ -317,7 +320,9 @@ class App extends Component {
         <Route
             path="/users/:username/charities"
             exact
-            render={props => <AdminProfile {...props} adminsCharities={this.state.adminsCharities} onShowCharityDetails={this.showCharityDetails} onGetCharityRequests={this.getCharityRequests} />}
+            render={props => (<AdminProfile 
+              {...props} adminsCharities={this.state.adminsCharities} 
+              onShowCharityDetails={this.showCharityDetails} onGetCharityRequests={this.getCharityRequests} />)}
         />
 
       <Route
@@ -325,15 +330,6 @@ class App extends Component {
             exact
             render={props => <UserProfile {...props} user={this.state.user} userRequests={this.state.userRequests} />}
         />  
-
-        {/* <Route
-          path="/users/:username/charities/:charity_id/add-request"
-          exact
-          render={props => <AddRequest {...props} user={this.state.user} selectedCharity={this.state.selectedCharity} onAddRequest={this.addRequest}/>}
-        /> */}
-
-        
-
       </Router>
     );
   }

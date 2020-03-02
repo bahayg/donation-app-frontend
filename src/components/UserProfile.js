@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Header, Segment, Image, Icon, Table, Grid, Popup } from 'semantic-ui-react'
+import { Button, Header, Segment, Table, Grid, Popup } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 
 class UserProfile extends Component {
@@ -11,12 +11,9 @@ class UserProfile extends Component {
 
     render() {
         return(
-            
             <>
-            
              <Link to={`users/${this.props.user.username}/requests`} />  
              
-
             <Segment >
                 <Header as='h2' textAlign='center'>
                         Current List of Requests 
@@ -67,7 +64,6 @@ class UserProfile extends Component {
                             <Table.Cell>{request.info}</Table.Cell> 
                              <Table.Cell>{request.charity.name}</Table.Cell> 
 
-
                             {request.status.toLowerCase() === 'pending' ? <Table.Cell warning>{request.status.toLowerCase()}<Button onClick={() => this.handleStatusClick(request, "open")} floated='right' color='green'>
               Drop</Button></Table.Cell> : null }
                             {request.status.toLowerCase() === 'approved' ? <Table.Cell warning>{request.status.toLowerCase()}<Button onClick={() => this.handleStatusClick(request, "open")} floated='right' color='green'>
@@ -78,9 +74,7 @@ class UserProfile extends Component {
                             </Table.Row>
                         )
                     })}
-              
             </Table.Body>
-
             </Table>
             </>
         )

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Route, Switch, Link } from "react-router-dom";
 import { Card, Container} from 'semantic-ui-react'
 import AdminsCharityCard from "../components/AdminsCharityCard";
 

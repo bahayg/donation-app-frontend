@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Header, Image, Modal, Form } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
-
+import { Button, Modal, Form } from 'semantic-ui-react';
 
 class EditRequest extends Component {
     constructor(){
@@ -17,7 +15,6 @@ class EditRequest extends Component {
             [e.target.name]: e.target.value
         })
     }
-
 
     handleSubmit = (e) => {
         // console.log("MODAL FORM SUBMITTED")
@@ -48,7 +45,6 @@ class EditRequest extends Component {
                     </Form> 
                  </Modal.Content>
                  </>
-
         )
     }
 }

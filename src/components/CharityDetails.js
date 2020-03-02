@@ -8,12 +8,9 @@ class CharityDetails extends Component {
         this.props.onEditRequestStatusAndId(request, status)
     }
 
-
     render() {
         return(
-            
             <>
-            
              <Link to={`charities/${this.props.selectedCharity.city}/${this.props.selectedCharity.id}`} />  
              <Segment placeholder>
                 <Header as='h1' textAlign='center'>
@@ -79,18 +76,14 @@ class CharityDetails extends Component {
                             <Table.Row>
                             {request.status.toLowerCase() !== 'closed' && request.status.toLowerCase() !== 'approved' ? <Table.Cell>{request.expiration_date}</Table.Cell> : null}
                             {request.status.toLowerCase() !== 'closed' && request.status.toLowerCase() !== 'approved' ?<Table.Cell>{request.info}</Table.Cell> : null} 
-
                             {request.status.toLowerCase() === 'open' ? <Table.Cell positive>{request.status.toLowerCase()}<Button onClick={() => this.handleStatusClick(request, "pending")} floated='right' color='green'>
               Donate</Button></Table.Cell> : null }
                             {/* {request.status.toLowerCase() === 'closed' ? <Table.Cell negative>{request.status.toLowerCase()}</Table.Cell> : null } */}
                             {request.status.toLowerCase() === 'pending' ? <Table.Cell warning>{request.status.toLowerCase()}</Table.Cell> : null }
-                            
                             </Table.Row>
                         )
                     })}
-              
             </Table.Body>
-
             </Table>
             </>
         )

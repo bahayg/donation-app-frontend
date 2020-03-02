@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Header, Segment, Image, Icon, Table, Grid, Popup, Modal, Form } from 'semantic-ui-react'
-import { Link } from 'react-router-dom';
 import { api } from "../services/api";
 import AddRequest from './AddRequest';
 import EditRequest from './EditRequest';
@@ -106,11 +105,8 @@ class AdminsCharitiesDetails extends Component {
                     </Popup>
                     </Table.HeaderCell>
 
-                    {/* <Table.HeaderCell>User</Table.HeaderCell> */}
-
                     <Table.HeaderCell>Edit</Table.HeaderCell>
                     
-
                     <Table.HeaderCell>Delete</Table.HeaderCell>
                 </Table.Row>
             </Table.Header>
@@ -146,7 +142,6 @@ class AdminsCharitiesDetails extends Component {
                     })}
               
             </Table.Body>
-
             </Table>
             </>
         )

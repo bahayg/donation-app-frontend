@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Container, Image, Button, Item, Segment } from 'semantic-ui-react'
+import { Card, Image } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
  class AdminsCharityCard extends Component {
@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom'
         this.props.onShowCharityDetails(this.props.charity)
         this.props.onGetCharityRequests(this.props.charity.id)
     }
-
 
      render() {
          return(

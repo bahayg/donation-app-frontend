@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-import { Route, Switch, Link } from "react-router-dom";
-import { api } from "../services/api";
+import { Link } from "react-router-dom";
 import { Card, Container, Button } from 'semantic-ui-react'
 import CharityCard from "../components/CharityCard";
-
-
 
 class CharitiesContainer extends Component {
   // constructor() {
@@ -66,7 +63,5 @@ class CharitiesContainer extends Component {
       </div>
     )
   }
-
-
 }
   export default CharitiesContainer;
