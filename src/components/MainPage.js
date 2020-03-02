@@ -12,7 +12,7 @@ class MainPage extends Component {
     
     uniqCities = () => {
         if (!this.props.allCharities.message) {
-            console.log(this.props.allCharities)
+            // console.log(this.props.allCharities)
             const uniq = this.props.allCharities.map(charity => charity.city).filter((v, i, a) => a.indexOf(v) === i).sort().map(city => city);
             uniq.unshift("All") 
             //   console.log(uniq)

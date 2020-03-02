@@ -7,6 +7,7 @@ class AddRequest extends Component {
     constructor(){
         super()
         this.state = {
+            requestId: '',
             expiration_date: '',
             info: '',
             status: '',

@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Button, Header, Segment, Image, Icon, Table, Grid, Popup } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 
-class CharityDetails extends Component {
+class UserProfile extends Component {
 
-    handleStatusClick = (request, status) => {
-        this.props.onEditRequestStatusAndId(request, status)
-    }
+    // handleStatusClick = (request, status) => {
+    //     this.props.onEditRequestStatusAndId(request, status)
+    // }
 
 
     render() {
@@ -14,27 +14,12 @@ class CharityDetails extends Component {
             
             <>
             
-             <Link to={`charities/${this.props.selectedCharity.city}/${this.props.selectedCharity.id}`} />  
-             <Segment placeholder>
-                <Header as='h1' textAlign='center'>
-                        {this.props.selectedCharity.name}
-                        <br></br>
-                </Header>
-                <Image size='medium' centered src={this.props.selectedCharity.image} />
-            </Segment>
-
-            <Segment icon>
-                <Grid columns={3} stackable textAlign='center'>
-                    <Grid.Column>
-                        <Icon name="map marker" centered />
-                        {this.props.selectedCharity.address}
-                    </Grid.Column>
-                </Grid>
-            </Segment>
+             <Link to={`users/${this.props.user.username}/requests`} />  
+             
 
             <Segment >
                 <Header as='h2' textAlign='center'>
-                        Current List of Requests by This Charity
+                        Current List of Requests 
                 </Header>
             </Segment>
 
@@ -43,6 +28,7 @@ class CharityDetails extends Component {
                 <Table.Row>
                     <Table.HeaderCell>Expires</Table.HeaderCell>
                     <Table.HeaderCell>Info</Table.HeaderCell>
+                    <Table.HeaderCell>Charity Name</Table.HeaderCell>
                     <Table.HeaderCell>Status
                     <Popup  wide inverted trigger={<Button icon='help circle' />} >
                         <Grid centered divided columns={3}>
@@ -74,16 +60,20 @@ class CharityDetails extends Component {
 
                 <Table.Body>
                 
-                    {this.props.charityRequests.map(request => {
+                    {this.props.userRequests.map(request => {
                         return (
                             <Table.Row>
-                            {request.status.toLowerCase() !== 'closed' && request.status.toLowerCase() !== 'approved' ? <Table.Cell>{request.expiration_date}</Table.Cell> : null}
-                            {request.status.toLowerCase() !== 'closed' && request.status.toLowerCase() !== 'approved' ?<Table.Cell>{request.info}</Table.Cell> : null} 
+                            <Table.Cell>{request.expiration_date}</Table.Cell> 
+                            <Table.Cell>{request.info}</Table.Cell> 
+                             <Table.Cell>{request.charity.name}</Table.Cell> 
 
-                            {request.status.toLowerCase() === 'open' ? <Table.Cell positive>{request.status.toLowerCase()}<Button onClick={() => this.handleStatusClick(request, "pending")} floated='right' color='green'>
-              Donate</Button></Table.Cell> : null }
+
+                            {request.status.toLowerCase() === 'pending' ? <Table.Cell warning>{request.status.toLowerCase()}<Button onClick={() => this.handleStatusClick(request, "open")} floated='right' color='green'>
+              Drop</Button></Table.Cell> : null }
+                            {request.status.toLowerCase() === 'approved' ? <Table.Cell warning>{request.status.toLowerCase()}<Button onClick={() => this.handleStatusClick(request, "open")} floated='right' color='green'>
+              Drop</Button></Table.Cell> : null }
                             {/* {request.status.toLowerCase() === 'closed' ? <Table.Cell negative>{request.status.toLowerCase()}</Table.Cell> : null } */}
-                            {request.status.toLowerCase() === 'pending' ? <Table.Cell warning>{request.status.toLowerCase()}</Table.Cell> : null }
+                            {request.status.toLowerCase() === 'closed' ? <Table.Cell negative>{request.status.toLowerCase()}</Table.Cell> : null }
                             
                             </Table.Row>
                         )
@@ -97,4 +87,4 @@ class CharityDetails extends Component {
     }
 }
 
-export default CharityDetails
+export default UserProfile

@@ -8,8 +8,7 @@ class EditRequest extends Component {
         super()
         this.state = {
             expiration_date: '',
-            info: '',
-            status: '',
+            info: ''
         }
     }
 
@@ -24,12 +23,12 @@ class EditRequest extends Component {
         // console.log("MODAL FORM SUBMITTED")
         e.preventDefault()
         this.props.closeEditModal()
-        this.props.onEditRequest(this.state, this.props.selectedCharity.id, this.props.user.id)
+        this.props.onEditRequest(this.state, this.props.requestId)
         // this.props.history.push(`/users/${this.props.user.username}/charities/${this.props.selectedCharity.id}`)
     }
 
     render() {
-        const { expiration_date, info, status } = this.state
+        const { expiration_date, info } = this.state
         return(
                 <>
                  <Modal.Header textAlign='center' >Update Request</Modal.Header>
@@ -42,10 +41,6 @@ class EditRequest extends Component {
                         <Form.Field>
                             <label>Info</label>
                             <input placeholder='Info' type="text" name="info" value={info}/>
-                        </Form.Field>
-                        <Form.Field>
-                            <label>Status</label>
-                            <input placeholder='Status' type="text" name="status" value={status}/>
                         </Form.Field>
                         <Form.Field>
                             <Button fluid type='submit' >Submit</Button>

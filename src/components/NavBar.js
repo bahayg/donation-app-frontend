@@ -25,11 +25,14 @@ class NavBar extends Component{
 
                 {/* onClick={(e) => this.props.getAdminsCharities(e) */}
                 
-                {this.props.user.id ? (<Menu.Item floated='left'  onClick={this.props.onGetAdminsCharities}><Link to={`/users/${this.props.user.username}/charities`}>{`${this.props.user.username}'s Profile`}</Link></Menu.Item>
+                {this.props.user.id && this.props.user.is_admin ? (<Menu.Item floated='left'  onClick={this.props.onGetAdminsCharities}><Link to={`/users/${this.props.user.username}/charities`}>{`${this.props.user.username}'s Profile`}</Link></Menu.Item>
                 ) 
                 :
-                ( 
-                null)}
+                 
+                  (this.props.user.id && !this.props.user.is_admin ? (<Menu.Item floated='left'  onClick={this.props.onGetUserRequests}><Link to={`/users/${this.props.user.username}/requests`}>{`${this.props.user.username}'s Profile`}</Link></Menu.Item>)
+                :
+                null)
+              }
                 
                 {this.props.user.id ?  (<Menu.Item floated='left' onClick={this.props.onLogout}><Link to="/home">Log Out</Link></Menu.Item>
                 ) 

@@ -13,6 +13,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { api } from "./services/api";
 import NavBar from "./components/NavBar";
 import AddRequest from './components/AddRequest';
+import UserProfile from './components/UserProfile';
 
 class App extends Component {
   constructor() {
@@ -24,8 +25,8 @@ class App extends Component {
       selectedCharity: false,
       city: "", 
       adminsCharities: [],
-      charityRequests: [], 
-      allRequests: []
+      charityRequests: [],
+      userRequests: []
     }
   };
 
@@ -39,7 +40,6 @@ class App extends Component {
     if (token) {
       // make a request to the backend and find our user
       api.auth.getCurrentUser().then(data => {
-        // console.log(data)
         this.setState({ user: data.user });
       });
     }
@@ -51,7 +51,6 @@ class App extends Component {
       if (!data.message) {
         this.setState({ allCharities: data })
       }
-      console.log(data)
     })
   }
 
@@ -80,6 +79,20 @@ class App extends Component {
       .then(data => this.setState({ charityRequests: data }));
   };
 
+  getUsersRequests = () => {
+    console.log(this.state.user)
+    return fetch(`http://localhost:3000/users/${this.state.user.id}/requests`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem('token')
+      }
+    })
+      .then(res => res.json())
+      .then(data => 
+        this.setState({ userRequests: data }));
+  }
+
   addNewCharity = (charityInfo, userId) => {
     fetch(`http://localhost:3000/charities`, {
       method: "POST",
@@ -105,7 +118,7 @@ class App extends Component {
   }
 
   addRequest = (requestInfo, charityId, userId) => {
-    console.log("MODAL TRIGERED THIS")
+    // console.log("MODAL TRIGERED THIS")
     fetch(`http://localhost:3000/requests`, {
       method: "POST",
       headers: {
@@ -129,15 +142,85 @@ class App extends Component {
       )
   }
 
-  editRequest = () => {
+  editRequest = (requestInfo, requestId) => {
+    fetch(`http://localhost:3000/requests/${requestId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem('token')
+      },
+      body: JSON.stringify({
+        expiration_date: requestInfo.expiration_date,
+        info: requestInfo.info
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
 
+        let updatedRequest = this.state.charityRequests.findIndex(request => request.id === requestId)
+        let copyOfRequests = Object.assign([], this.state.charityRequests)
+        copyOfRequests[updatedRequest] = data
+        this.setState({
+          charityRequests: copyOfRequests
+        })     
+      })
   }
 
+  editRequestStatus = (id, status) => {
+    fetch(`http://localhost:3000/requests/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem('token')
+      },
+      body: JSON.stringify({
+        status: status
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+
+        let updatedRequest = this.state.charityRequests.findIndex(request => request.id === id)
+        let copyOfRequests = Object.assign([], this.state.charityRequests)
+        copyOfRequests[updatedRequest] = data
+        this.setState({
+          charityRequests: copyOfRequests
+        })     
+      })
+  }
+
+  editRequestStatusAndId = (request, status) => {
+    fetch(`http://localhost:3000/requests/${request.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem('token')
+      },
+      body: JSON.stringify({
+        user_id: this.state.user.id,
+        status: status
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+
+        let updatedRequest = this.state.charityRequests.findIndex(r => r.id === request.id)
+        let copyOfRequests = Object.assign([], this.state.charityRequests)
+        copyOfRequests[updatedRequest].status = data.status
+        copyOfRequests[updatedRequest].charity.user_id = data.user.id
+        
+        this.setState({
+          charityRequests: copyOfRequests
+        })     
+      })
+  }
 
   showCharityDetails = charity => {
     this.setState({ selectedCharity: charity })
   }
-
 
   deleteCharitySet = (id) => {
     // console.log("carity to delete id: ", id)
@@ -146,7 +229,6 @@ class App extends Component {
       adminsCharities: prevState.adminsCharities.filter(charity => charity.id !== id)
     }))
   }
-
 
   login = data => {
     localStorage.setItem("token", data.jwt);
@@ -178,6 +260,7 @@ class App extends Component {
           user={this.state.user}
           onLogout={this.logout}
           onGetAdminsCharities={this.getAdminsCharities}
+          onGetUserRequests={this.getUsersRequests}
         />
 
         <Route
@@ -213,7 +296,7 @@ class App extends Component {
         <Route
             path="/charities/:city/:id" 
             exact
-            render={props => <CharityDetails {...props} user={this.state.user} selectedCharity={this.state.selectedCharity} charityRequests={this.state.charityRequests}/>}
+            render={props => <CharityDetails {...props} user={this.state.user} selectedCharity={this.state.selectedCharity} charityRequests={this.state.charityRequests} onEditRequestStatus={this.editRequestStatus} onEditRequestStatusAndId={this.editRequestStatusAndId}/>}
         />
 
         <Route
@@ -227,6 +310,7 @@ class App extends Component {
               charityRequests={this.state.charityRequests}
               onAddRequest={this.addRequest}
               onEditRequest={this.editRequest}
+              onEditRequestStatus={this.editRequestStatus}
             />)}
         />
 
@@ -235,6 +319,12 @@ class App extends Component {
             exact
             render={props => <AdminProfile {...props} adminsCharities={this.state.adminsCharities} onShowCharityDetails={this.showCharityDetails} onGetCharityRequests={this.getCharityRequests} />}
         />
+
+      <Route
+            path="/users/:username/requests"
+            exact
+            render={props => <UserProfile {...props} user={this.state.user} userRequests={this.state.userRequests} />}
+        />  
 
         {/* <Route
           path="/users/:username/charities/:charity_id/add-request"
