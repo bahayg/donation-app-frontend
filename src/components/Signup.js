@@ -9,7 +9,9 @@ class Signup extends Component {
       formFields: {
         username: '',
         password: '',
-        is_admin: ''
+        is_admin: '', 
+        email: '',
+        image: ''
       },
       error: false
     };
@@ -44,6 +46,8 @@ class Signup extends Component {
   }
 
 render() {
+
+    const { username, password, is_admin, email, image } = this.state.formFields
     const userType = [
         { key: 1, text: 'I need help - Organization', value: 'true' },
         { key: 2, text: 'I want to help - Donor', value: 'false' },
@@ -67,7 +71,7 @@ render() {
                   name="username"
                   placeholder='Username' 
                   type='username'
-                  value={this.state.formFields.username}
+                  value={username}
                   onChange={this.handleChange}
               />
                 <Form.Input
@@ -77,15 +81,35 @@ render() {
                   name="password"
                   placeholder='Password'
                   type='password'
-                  value={this.state.formFields.password}
+                  value={password}
                   onChange={this.handleChange}
                 />
+                <Form.Input 
+                  fluid 
+                  icon='mail' 
+                  iconPosition='left' 
+                  name="email"
+                  placeholder='E-mail Address' 
+                  type='email'
+                  value={email}
+                  onChange={this.handleChange}
+              />
+              <Form.Input 
+                  fluid 
+                  icon='image' 
+                  iconPosition='left' 
+                  name="image"
+                  placeholder='Profile Picture Url' 
+                  type='text'
+                  value={image}
+                  onChange={this.handleChange}
+              />
                   <Dropdown
                       placeholder='Select User Type'
                       fluid
                       selection
                       options={userType}
-                      value={this.state.formFields.is_admin}
+                      value={is_admin}
                       onChange={this.handleAdminChange}
                   />
                   <br></br>

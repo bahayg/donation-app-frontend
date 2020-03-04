@@ -10,6 +10,7 @@ class CharityAddForm extends Component {
             image: '',
             address: '',
             city: '',
+            description: ''
         }
     }
 
@@ -26,7 +27,7 @@ class CharityAddForm extends Component {
     }
 
     render() {
-        const { name, image, address, city } = this.state
+        const { name, image, address, city, description } = this.state
         return(
             <>
             <Header as='h1' textAlign='left' style={{ paddingLeft:"300px" }}>
@@ -52,6 +53,11 @@ class CharityAddForm extends Component {
                 <Form.Field>
                     <label>City</label>
                     <input placeholder='City' type="text" name="city" defaultValue={city}/>
+                </Form.Field>
+
+                <Form.Field>
+                    <label>Description</label>
+                    <input placeholder='Description' type="text" name="description" defaultValue={description}/>
                 </Form.Field>
 
                 <Form.Field>

@@ -103,7 +103,8 @@ class App extends Component {
         name: charityInfo.name,
         image: charityInfo.image,
         address: charityInfo.address,
-        city: charityInfo.city
+        city: charityInfo.city,
+        description: charityInfo.description
       })
     })
       .then(res => res.json())
@@ -128,6 +129,7 @@ class App extends Component {
         expiration_date: requestInfo.expiration_date,
         info: requestInfo.info,
         status: requestInfo.status,
+        category: requestInfo.category
       })
     })
       .then(res => res.json())
@@ -148,7 +150,8 @@ class App extends Component {
       },
       body: JSON.stringify({
         expiration_date: requestInfo.expiration_date,
-        info: requestInfo.info
+        info: requestInfo.info,
+        category: requestInfo.category
       })
     })
       .then(res => res.json())

@@ -46,6 +46,8 @@ class AdminsCharitiesDetails extends Component {
     }
 
     render() {
+        const { name, image, address, description } = this.props.selectedCharity
+
         return(
             <>
              {/* <Link to={`charities/${this.props.selectedCharity.city}/${this.props.selectedCharity.id}`} />   */}
@@ -54,22 +56,20 @@ class AdminsCharitiesDetails extends Component {
              <Modal as={Form} onClose={this.closeModal} open={this.state.showModal} size="tiny" trigger={<Button onClick={() => this.setState({ showModal: true })}>Add Request</Button>}>
                  <AddRequest user={this.props.user} closeModal={this.closeModal} selectedCharity={this.props.selectedCharity} onAddRequest={this.props.onAddRequest} /></Modal>
 
-             <Segment placeholder>
-                {/* <Header as='h1' textAlign='center'>
-                    {this.props.selectedCharity.name}
-                    <br></br>
-                </Header> */}
-                <Image size='medium' centered src={this.props.selectedCharity.image} />
-            </Segment>
-
-            <Segment icon="true">
-                <Grid columns={3} stackable textAlign='center'>
+                <Segment placeholder>
+                <Grid centered divided columns={2}>
                     <Grid.Column>
-                        <Icon name="map marker" />
-                        {this.props.selectedCharity.address}
+                        <Image size='medium' centered src={image} />
+                    </Grid.Column>
+                    <Grid.Column>
+                        <p><label style={{ fontWeight:"600" }}>Name:</label> {name}</p>
+                        <p><label style={{ fontWeight:"600" }}>Address:<Icon name="map marker"/></label> {address}</p>
+                        <p><label style={{ fontWeight:"600" }}>Description:</label> {description}</p>
                     </Grid.Column>
                 </Grid>
-            </Segment>
+                </Segment>
+
+                 {/* <Grid columns={3} stackable textAlign='center'> */}
 
             <Segment >
                 <Header as='h2' textAlign='center'>
@@ -82,6 +82,7 @@ class AdminsCharitiesDetails extends Component {
             <Table.Header>
                 <Table.Row>
                     <Table.HeaderCell>Expires</Table.HeaderCell>
+                    <Table.HeaderCell>Category</Table.HeaderCell>
                     <Table.HeaderCell>Info</Table.HeaderCell>
                     <Table.HeaderCell>Status
                     <Popup  wide="very" inverted trigger={<Button icon='help circle' />} >
@@ -123,6 +124,7 @@ class AdminsCharitiesDetails extends Component {
                     return (
                         <Table.Row key={index}>
                             <Table.Cell>{request.expiration_date}</Table.Cell>
+                            <Table.Cell>{request.category}</Table.Cell>
                             <Table.Cell>{request.info}</Table.Cell>
 
                             {request.status.toLowerCase() === 'open' ? <Table.Cell positive>{request.status.toLowerCase()} </Table.Cell> : null }

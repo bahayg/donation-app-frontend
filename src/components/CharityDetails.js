@@ -9,25 +9,24 @@ class CharityDetails extends Component {
     }
 
     render() {
+        const { id, name, image, address, city, description } = this.props.selectedCharity
         return(
             <>
-             <Link to={`charities/${this.props.selectedCharity.city}/${this.props.selectedCharity.id}`} />  
+             <Link to={`charities/${city}/${id}`} />  
              <Segment placeholder>
-                {/* <Header as='h1' textAlign='center'>
-                    {this.props.selectedCharity.name}
-                    <br></br>
-                </Header> */}
-                <Image size='medium' centered src={this.props.selectedCharity.image} />
+             <Grid centered divided columns={2}>
+                <Grid.Column>
+                    <Image size='medium' centered src={image} />
+                </Grid.Column>
+                <Grid.Column>
+                    <p><label style={{ fontWeight:"600" }}>Name:</label> {name}</p>
+                    <p><label style={{ fontWeight:"600" }}>Address:<Icon name="map marker"/></label> {address}</p>
+                    <p><label style={{ fontWeight:"600" }}>Description:</label> {description}</p>
+                </Grid.Column>
+            </Grid>
             </Segment>
 
-            <Segment icon="true">
-                <Grid columns={3} stackable textAlign='center'>
-                    <Grid.Column>
-                        <Icon name="map marker" />
-                        {this.props.selectedCharity.address}
-                    </Grid.Column>
-                </Grid>
-            </Segment>
+                {/* <Grid columns={3} stackable textAlign='center'> */}
 
             <Segment >
                 <Header as='h2' textAlign='center'>
@@ -39,6 +38,7 @@ class CharityDetails extends Component {
                 <Table.Header>
                 <Table.Row>
                     <Table.HeaderCell>Expires</Table.HeaderCell>
+                    <Table.HeaderCell>Category</Table.HeaderCell>
                     <Table.HeaderCell>Info</Table.HeaderCell>
                     <Table.HeaderCell>Status
                     <Popup  wide inverted trigger={<Button icon='help circle' />} >
@@ -68,6 +68,7 @@ class CharityDetails extends Component {
                         return (
                             <Table.Row key={index}>
                             {request.status.toLowerCase() !== 'closed' && request.status.toLowerCase() !== 'approved' ? <Table.Cell >{request.expiration_date}</Table.Cell> : null}
+                            {request.status.toLowerCase() !== 'closed' && request.status.toLowerCase() !== 'approved' ?<Table.Cell>{request.category}</Table.Cell> : null} 
                             {request.status.toLowerCase() !== 'closed' && request.status.toLowerCase() !== 'approved' ?<Table.Cell>{request.info}</Table.Cell> : null} 
                             {request.status.toLowerCase() === 'open' ? <Table.Cell positive>{request.status.toLowerCase()}<Button onClick={() => this.handleStatusClick(request, "pending")} floated='right' inverted color='green'>
               Donate</Button></Table.Cell> : null }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Header, Segment, Table, Grid, Popup, Icon } from 'semantic-ui-react'
+import { Button, Header, Segment, Table, Grid, Popup, Icon, Image } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 
 class UserProfile extends Component {
@@ -10,9 +10,27 @@ class UserProfile extends Component {
     }
 
     render() {
+        const { username, is_admin, email, image } = this.props.user
+
         return(
             <>
              <Link to={`users/${this.props.user.username}/requests`} />  
+
+            <Segment placeholder>
+                <Grid centered divided columns={2}>
+                    <Grid.Column>
+                        <Image size='medium' circular centered src={image} />
+                    </Grid.Column>
+                    <Grid.Column>
+                        <p><label style={{ fontWeight:"600" }}><Icon name="user"/> Username:</label> {username}</p>
+                        <p><label style={{ fontWeight:"600" }}><Icon name="mail"/> E-mail Address:</label> {email}</p>
+                        <p><label style={{ fontWeight:"600" }}>Is Admin?:</label> {is_admin ? "Yes" : "No"}</p>
+                        <Button floated="left">Edit My Account</Button>
+                        <Button>Delete My Account</Button>
+                    </Grid.Column>
+                </Grid>
+            </Segment>
+            
              
             <Segment >
                 <Header as='h2' textAlign='center'>
@@ -24,8 +42,9 @@ class UserProfile extends Component {
                 <Table.Header>
                 <Table.Row>
                     <Table.HeaderCell>Expires</Table.HeaderCell>
-                    <Table.HeaderCell>Info</Table.HeaderCell>
+                    <Table.HeaderCell>Category</Table.HeaderCell>
                     <Table.HeaderCell>Charity Name</Table.HeaderCell>
+                    <Table.HeaderCell>Info</Table.HeaderCell>
                     <Table.HeaderCell>Status
                     <Popup  wide inverted trigger={<Button icon='help circle' />} >
                         <Grid centered divided columns={3}>
@@ -60,8 +79,9 @@ class UserProfile extends Component {
                         return (
                             <Table.Row key={index}>
                             <Table.Cell>{request.expiration_date}</Table.Cell> 
+                            <Table.Cell>{request.category}</Table.Cell>
+                            <Table.Cell>{request.charity.name}</Table.Cell>
                             <Table.Cell>{request.info}</Table.Cell> 
-                             <Table.Cell>{request.charity.name}</Table.Cell> 
 
                             {request.status.toLowerCase() === 'pending' ? <Table.Cell warning><Icon name='attention' />{request.status.toLowerCase()}<Button onClick={() => this.handleStatusClick(request, "open")} floated='right' inverted color='red'>
               Drop</Button></Table.Cell> : null }
