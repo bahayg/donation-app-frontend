@@ -4,17 +4,13 @@ import AdminsCharityCard from "../components/AdminsCharityCard";
 
 class AdminProfile extends Component {
     adminsCharityCards = () => {
-        return  this.props.adminsCharities.map (charity => {
-        return (
-          <div style={{ paddingRight:"10px", paddingTop:"10px" }}>
-            <AdminsCharityCard onShowCharityDetails={this.props.onShowCharityDetails} onGetCharityRequests={this.props.onGetCharityRequests} charity={charity} />
-          </div>
-          )
+        return  this.props.adminsCharities.map ((charity, index) => {
+        return <AdminsCharityCard style={{ paddingRight:"10px", paddingTop:"10px" }} key={index} onShowCharityDetails={this.props.onShowCharityDetails} onGetCharityRequests={this.props.onGetCharityRequests} charity={charity} />
         })
       }
     render() {
         return(
-            <Container>
+            <Container style={{padding: '40px'}}>
                 <Card.Group centered itemsPerRow={3}>
                 {this.adminsCharityCards()}
                 </Card.Group>

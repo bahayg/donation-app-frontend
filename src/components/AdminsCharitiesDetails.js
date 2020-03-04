@@ -26,21 +26,26 @@ class AdminsCharitiesDetails extends Component {
     handleDeleteCharity = () => {
         api.charities.deleteCharity(this.props.selectedCharity.id)
         .then((data) => {
-            // console.log(data)
             this.props.deleteCharitySet(data.id)
             this.props.history.push(`/users/${this.props.user.username}/charities`)
             // this.props.history.push('/home')
-
         })
     }
 
+    handleDeleteRequest = (request) => {
+        api.requests.deleteRequest(request.id)
+        .then(data => {
+            this.props.onCharityRequestDelete(data.id)
+            this.props.history.push(`/users/${this.props.user.username}/charities/${this.props.selectedCharity.id}`)
+    })
+}
+
     handleStatusClick = (request, status) => {
-        console.log("Approved")
+        // console.log("Approved")
         this.props.onEditRequestStatus(request.id, status)
     }
 
     render() {
-
         return(
             <>
              {/* <Link to={`charities/${this.props.selectedCharity.city}/${this.props.selectedCharity.id}`} />   */}
@@ -49,19 +54,18 @@ class AdminsCharitiesDetails extends Component {
              <Modal as={Form} onClose={this.closeModal} open={this.state.showModal} size="tiny" trigger={<Button onClick={() => this.setState({ showModal: true })}>Add Request</Button>}>
                  <AddRequest user={this.props.user} closeModal={this.closeModal} selectedCharity={this.props.selectedCharity} onAddRequest={this.props.onAddRequest} /></Modal>
 
-             {/* <Button as={Link} to={`/users/${this.props.user.username}/charities/${this.props.selectedCharity.id}/add-request`} floated="right" onClick={this.handleAddRequest}>Add Request</Button> <br></br> */}
              <Segment placeholder>
-                <Header as='h1' textAlign='center'>
-                        {this.props.selectedCharity.name}
-                        <br></br>
-                </Header>
+                {/* <Header as='h1' textAlign='center'>
+                    {this.props.selectedCharity.name}
+                    <br></br>
+                </Header> */}
                 <Image size='medium' centered src={this.props.selectedCharity.image} />
             </Segment>
 
-            <Segment icon>
+            <Segment icon="true">
                 <Grid columns={3} stackable textAlign='center'>
                     <Grid.Column>
-                        <Icon name="map marker" centered />
+                        <Icon name="map marker" />
                         {this.props.selectedCharity.address}
                     </Grid.Column>
                 </Grid>
@@ -69,70 +73,75 @@ class AdminsCharitiesDetails extends Component {
 
             <Segment >
                 <Header as='h2' textAlign='center'>
-                        Current List of Requests 
+                    Current List of Requests by {`${this.props.selectedCharity.name}`}
                 </Header>
             </Segment>
 
-            <Table celled>
+            <Table celled color={'green'}>
                    
             <Table.Header>
                 <Table.Row>
                     <Table.HeaderCell>Expires</Table.HeaderCell>
                     <Table.HeaderCell>Info</Table.HeaderCell>
                     <Table.HeaderCell>Status
-                    <Popup  wide inverted trigger={<Button icon='help circle' />} >
-                        <Grid centered divided columns={3}>
+                    <Popup  wide="very" inverted trigger={<Button icon='help circle' />} >
+                        <Grid centered divided columns={4}>
                             <Grid.Column textAlign='center'>
                                 <Header as='h4'>Open</Header>
                                 <p>
-                                Click to "open" to donate and wait for approval
+                                    The item is listed. You can edit and/or remove it from your list.
                                 </p>
-                                </Grid.Column>
-                                <Grid.Column textAlign='center'>
-                                    <Header as='h4'>Pending</Header>
+                            </Grid.Column>
+                            <Grid.Column textAlign='center'>
+                                <Header as='h4'>Pending</Header>
+                                <p>
+                                    A volunteer is waiting for approval to donate this item. Click to "Approve" and wait for the volunteer to deliver it. 
+                                </p>
+                            </Grid.Column>
+                            <Grid.Column textAlign='center'>
+                                <Header as='h4'>Approved</Header>
+                                <p>
+                                    Wait for the volunteer to deliver this item and then click to "Close" after it is delivered.
+                                </p>
+                            </Grid.Column>
+                            <Grid.Column textAlign='center'>
+                                <Header as='h4'>Closed</Header>
                                     <p>
-                                    Another user is waiting for approval to donate, 
-                                    you can not donate
+                                        The item is donated. You can remove it from your list.
                                     </p>
-                                    </Grid.Column>
-                                    <Grid.Column textAlign='center'>
-                                        <Header as='h4'>Closed</Header>
-                                        <p>
-                                        Another user already donated, you can not donate
-                                        </p>
-                                        </Grid.Column>
-                                </Grid>
+                            </Grid.Column>
+                        </Grid>
                     </Popup>
                     </Table.HeaderCell>
-
                     <Table.HeaderCell>Edit</Table.HeaderCell>
-                    
                     <Table.HeaderCell>Delete</Table.HeaderCell>
                 </Table.Row>
             </Table.Header>
                 
             <Table.Body>
-                    {this.props.charityRequests.map(request => {
-                        return (
-                            <Table.Row>
+                {this.props.charityRequests.map((request, index) => {
+                    return (
+                        <Table.Row key={index}>
                             <Table.Cell>{request.expiration_date}</Table.Cell>
                             <Table.Cell>{request.info}</Table.Cell>
 
                             {request.status.toLowerCase() === 'open' ? <Table.Cell positive>{request.status.toLowerCase()} </Table.Cell> : null }
                             {request.status.toLowerCase() === 'closed' ? <Table.Cell negative>{request.status.toLowerCase()}</Table.Cell> : null }
-                            {request.status.toLowerCase() === 'pending' ? <Table.Cell warning>{request.status.toLowerCase()}<Button onClick={() => this.handleStatusClick(request, "approved")} floated='right' color='orange'>
+                            {request.status.toLowerCase() === 'pending' ? <Table.Cell warning><Icon name='attention' />{request.status.toLowerCase()}<Button onClick={() => this.handleStatusClick(request, "approved")} floated='right' inverted color='brown'>
               Approve</Button></Table.Cell> : null }
-                            {request.status.toLowerCase() === 'approved' ? <Table.Cell warning>{request.status.toLowerCase()}<Button onClick={() => this.handleStatusClick(request, "closed")} floated='right' color='red'>
+                            {request.status.toLowerCase() === 'approved' ? <Table.Cell warning><Icon name='checkmark' />{request.status.toLowerCase()}<Button onClick={() => this.handleStatusClick(request, "closed")} floated='right' inverted color='red'>
               Close</Button></Table.Cell> : null }
 
-                            {/* <Table.Cell icon='edit'></Table.Cell> */}
 
                             {request.status.toLowerCase() === 'open' ? 
                             <Modal as={Form} open={this.state.showEditModal} onClose={this.closeEditModal} size="tiny" trigger={<Table.Cell icon='edit' onClick={() => this.setState({ showEditModal: true, selectedRequest: request })}></Table.Cell>}>
                  <EditRequest user={this.props.user} requestId={this.state.selectedRequest.id} closeEditModal={this.closeEditModal} selectedCharity={this.props.selectedCharity} onEditRequest={this.props.onEditRequest} /></Modal>
                         : <Table.Cell></Table.Cell>}
 
-                            <Table.Cell icon='trash alternate'></Table.Cell>
+
+                            {request.status.toLowerCase() === 'open' || request.status.toLowerCase() === 'closed' ? <Popup content='Click to remove this item from your list' position='top center' trigger={<Table.Cell icon='trash alternate' onClick={() => this.handleDeleteRequest(request)}></Table.Cell>}/>
+                            : <Table.Cell></Table.Cell>}
+
                             </Table.Row>
 
                             // <Modal

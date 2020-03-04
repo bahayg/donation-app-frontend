@@ -29,46 +29,34 @@ class CharityAddForm extends Component {
         const { name, image, address, city } = this.state
         return(
             <>
-            {/* <Link to="/add"/> */}
             <Header as='h1' textAlign='left' style={{ paddingLeft:"300px" }}>
-                    Organization / Charity Add Form
+                Organization / Charity Add Form
             </Header>
-            <br></br>
+                <br></br>
             <Form style={{ paddingRight:"500px", paddingLeft:"40px" }} onSubmit={e => this.handleSubmit(e)} onChange={e => this.handleChange(e)}>
                 <Form.Field >
-            
                     <label>Name of the Organization</label>
-                    <input placeholder='Name' type="text" name="name" value={name}/>
-        
+                    <input placeholder='Name' type="text" name="name" defaultValue={name}/>
                 </Form.Field>
     
                 <Form.Field>
-            
                     <label>Logo / Photo </label>
-                    <input placeholder='Logo' type="text" name="image" value={image}/>
-        
+                    <input placeholder='Logo' type="text" name="image" defaultValue={image}/>
                 </Form.Field>
 
                 <Form.Field>
-            
                     <label>Address</label>
-                    <input placeholder='Address' type="text" name="address" value={address}/>
-            
+                    <input placeholder='Address' type="text" name="address" defaultValue={address}/>
                 </Form.Field>
 
                 <Form.Field>
-            
                     <label>City</label>
-                    <input placeholder='City' type="text" name="city" value={city}/>
-            
+                    <input placeholder='City' type="text" name="city" defaultValue={city}/>
                 </Form.Field>
 
                 <Form.Field>
-
                     <Button type='submit'>Add</Button>
-                
                 </Form.Field>
-    
             </Form>
         </>
         )

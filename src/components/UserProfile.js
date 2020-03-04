@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { Button, Header, Segment, Table, Grid, Popup } from 'semantic-ui-react'
+import { Button, Header, Segment, Table, Grid, Popup, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 
 class UserProfile extends Component {
 
-    // handleStatusClick = (request, status) => {
-    //     this.props.onEditRequestStatusAndId(request, status)
-    // }
-
+    handleStatusClick = (request) => {
+        console.log("Dropped")
+        this.props.onEditRequestStatusDonor(request.id)
+    }
 
     render() {
         return(
@@ -20,7 +20,7 @@ class UserProfile extends Component {
                 </Header>
             </Segment>
 
-            <Table celled>
+            <Table celled color={'orange'}>
                 <Table.Header>
                 <Table.Row>
                     <Table.HeaderCell>Expires</Table.HeaderCell>
@@ -30,50 +30,49 @@ class UserProfile extends Component {
                     <Popup  wide inverted trigger={<Button icon='help circle' />} >
                         <Grid centered divided columns={3}>
                             <Grid.Column textAlign='center'>
-                                <Header as='h4'>Open</Header>
-                                <p>
-                                Click to "open" to donate and wait for approval
-                                </p>
-                                </Grid.Column>
-                                <Grid.Column textAlign='center'>
-                                    <Header as='h4'>Pending</Header>
+                                <Header as='h4'>Pending</Header>
                                     <p>
-                                    Another user is waiting for approval to donate, 
-                                    you can not donate
+                                    Wait for approval to donate this item or click to "Drop", if you do not want to donate it anymore.
                                     </p>
-                                    </Grid.Column>
-                                    <Grid.Column textAlign='center'>
-                                        <Header as='h4'>Closed</Header>
-                                        <p>
-                                        Another user already donated, you can not donate
-                                        </p>
-                                        </Grid.Column>
-                                </Grid>
-                                </Popup>
-                   
+                            </Grid.Column>
+
+                            <Grid.Column textAlign='center'>
+                                <Header as='h4'>Approved</Header>
+                                    <p>
+                                    You can deliver this item or click to "Drop", if you do not want to donate it anymore.
+                                    </p>
+                            </Grid.Column>
+                                    
+                            <Grid.Column textAlign='center'>
+                                <Header as='h4'>Closed</Header>
+                                    <p>
+                                    You already donated this item.
+                                    </p>
+                            </Grid.Column>
+                        </Grid>
+                    </Popup>
                     </Table.HeaderCell>
                 </Table.Row>
                 </Table.Header>
 
                 <Table.Body>
-                
-                    {this.props.userRequests.map(request => {
+                    {this.props.userRequests.map((request, index) => {
                         return (
-                            <Table.Row>
+                            <Table.Row key={index}>
                             <Table.Cell>{request.expiration_date}</Table.Cell> 
                             <Table.Cell>{request.info}</Table.Cell> 
                              <Table.Cell>{request.charity.name}</Table.Cell> 
 
-                            {request.status.toLowerCase() === 'pending' ? <Table.Cell warning>{request.status.toLowerCase()}<Button onClick={() => this.handleStatusClick(request, "open")} floated='right' color='green'>
+                            {request.status.toLowerCase() === 'pending' ? <Table.Cell warning><Icon name='attention' />{request.status.toLowerCase()}<Button onClick={() => this.handleStatusClick(request, "open")} floated='right' inverted color='red'>
               Drop</Button></Table.Cell> : null }
-                            {request.status.toLowerCase() === 'approved' ? <Table.Cell warning>{request.status.toLowerCase()}<Button onClick={() => this.handleStatusClick(request, "open")} floated='right' color='green'>
+                            {request.status.toLowerCase() === 'approved' ? <Table.Cell warning><Icon name='checkmark' />{request.status.toLowerCase()}<Button onClick={() => this.handleStatusClick(request, "open")} floated='right' inverted color='red'>
               Drop</Button></Table.Cell> : null }
-                            {/* {request.status.toLowerCase() === 'closed' ? <Table.Cell negative>{request.status.toLowerCase()}</Table.Cell> : null } */}
-                            {request.status.toLowerCase() === 'closed' ? <Table.Cell negative>{request.status.toLowerCase()}</Table.Cell> : null }
-                            
+                            {request.status.toLowerCase() === 'closed'  ? <Table.Cell negative>{request.status.toLowerCase()}</Table.Cell> : null }
+                                     
                             </Table.Row>
                         )
                     })}
+
             </Table.Body>
             </Table>
             </>

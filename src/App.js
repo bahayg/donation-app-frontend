@@ -78,7 +78,6 @@ class App extends Component {
   };
 
   getUsersRequests = () => {
-    console.log(this.state.user)
     return fetch(`http://localhost:3000/users/${this.state.user.id}/requests`, {
       headers: {
         "Content-Type": "application/json",
@@ -116,7 +115,6 @@ class App extends Component {
   }
 
   addRequest = (requestInfo, charityId, userId) => {
-    // console.log("MODAL TRIGERED THIS")
     fetch(`http://localhost:3000/requests`, {
       method: "POST",
       headers: {
@@ -165,6 +163,7 @@ class App extends Component {
       })
   }
 
+  //ADMIN APPROVES DONATION
   editRequestStatus = (id, status) => {
     fetch(`http://localhost:3000/requests/${id}`, {
       method: "PATCH",
@@ -189,6 +188,36 @@ class App extends Component {
       })
   }
 
+  //TO CANCEL A DONATION BY A USER
+  editRequestStatusDonor = (id) => {
+    fetch(`http://localhost:3000/requests/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem('token')
+      },
+      body: JSON.stringify({
+        //USER_ID IS 1 TO SET TO ADMIN
+        request: {user_id: 1,
+        status: "open"}
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        let updatedUserRequest = this.state.userRequests.filter(r => r.id !== id)
+    
+        let updatedCharityRequest = this.state.charityRequests.findIndex(r => r.id === id)
+        let copyOfCharityRequests = Object.assign([], this.state.charityRequests)
+        copyOfCharityRequests[updatedCharityRequest] = data
+           this.setState({
+              charityRequests: copyOfCharityRequests,
+                  userRequests: updatedUserRequest
+            })     
+      })
+  }
+
+  //UPDATE REQUEST TO BE TIED TO A SPECIFIC USER
   editRequestStatusAndId = (request, status) => {
     fetch(`http://localhost:3000/requests/${request.id}`, {
       method: "PATCH",
@@ -221,10 +250,16 @@ class App extends Component {
   }
 
   deleteCharitySet = (id) => {
-    // console.log("carity to delete id: ", id)
+    // console.log("charity to delete id: ", id)
      this.setState(prevState => ({
       allCharities: prevState.allCharities.filter(charity => charity.id !== id), 
       adminsCharities: prevState.adminsCharities.filter(charity => charity.id !== id)
+    }))
+  }
+
+  charityRequestDelete = (requestId) => {
+    this.setState(prevState => ({
+      charityRequests: prevState.charityRequests.filter(request => request.id !== requestId)
     }))
   }
 
@@ -305,7 +340,8 @@ class App extends Component {
         <Route
             path="/users/:username/charities/:id" 
             exact
-            render={props => (<AdminsCharitiesDetails 
+            render={(props, index) => (<AdminsCharitiesDetails 
+              key={index}
               {...props} 
               selectedCharity={this.state.selectedCharity} 
               user={this.state.user} 
@@ -314,6 +350,7 @@ class App extends Component {
               onAddRequest={this.addRequest}
               onEditRequest={this.editRequest}
               onEditRequestStatus={this.editRequestStatus}
+              onCharityRequestDelete={this.charityRequestDelete}
             />)}
         />
 
@@ -328,7 +365,7 @@ class App extends Component {
       <Route
             path="/users/:username/requests"
             exact
-            render={props => <UserProfile {...props} user={this.state.user} userRequests={this.state.userRequests} />}
+            render={props => <UserProfile {...props} user={this.state.user} userRequests={this.state.userRequests} onEditRequestStatusDonor={this.editRequestStatusDonor}/>}
         />  
       </Router>
     );

@@ -19,7 +19,7 @@ class AddRequest extends Component {
     }
 
     handleSubmit = (e) => {
-        console.log("MODAL FORM SUBMITTED")
+        // console.log("MODAL FORM SUBMITTED")
         e.preventDefault()
         this.props.closeModal()
         this.props.onAddRequest(this.state, this.props.selectedCharity.id, this.props.user.id)
@@ -29,28 +29,28 @@ class AddRequest extends Component {
     render() {
         const { expiration_date, info, status } = this.state
         return(
-                <>
-                 <Modal.Header textAlign='center' >Add New Request</Modal.Header>
+            <>
+                <Modal.Header >Add New Request</Modal.Header>
                 <Modal.Content>
                      <Form onSubmit={e => this.handleSubmit(e)} onChange={e => this.handleChange(e)}>
                         <Form.Field>
                             <label>Expiration_date </label>
-                            <input placeholder='Expiration_date' type="text" name="expiration_date" value={expiration_date}/>
+                            <input placeholder='Expiration_date' type="text" name="expiration_date" defaultValue={expiration_date}/>
                         </Form.Field>
                         <Form.Field>
                             <label>Info</label>
-                            <input placeholder='Info' type="text" name="info" value={info}/>
+                            <input placeholder='Info' type="text" name="info" defaultValue={info}/>
                         </Form.Field>
                         <Form.Field>
                             <label>Status</label>
-                            <input placeholder='Status' type="text" name="status" value={status}/>
+                            <input placeholder='Status' type="text" name="status" defaultValue={status}/>
                         </Form.Field>
                         <Form.Field>
                             <Button fluid type='submit' >Submit</Button>
                         </Form.Field>
                     </Form> 
-                 </Modal.Content>
-                 </>
+                </Modal.Content>
+            </>
         )
     }
 }

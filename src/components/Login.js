@@ -23,9 +23,9 @@ class Login extends Component {
     e.preventDefault()
     api.auth.login(this.state.formFields)
       .then(data => {
-        console.log(data)
+        // console.log(data)
         if (data.error) {
-          console.log(data.error)
+          // console.log(data.error)
           this.setState({error: true});
         } else {
           this.props.onLogin(data)
@@ -36,13 +36,14 @@ class Login extends Component {
 
   render() {
     return (
-      <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+      <Grid textAlign='center' style={{ height: '75vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
-          <Header as='h2' color='teal' textAlign='center'>
-            <Image src='/DonationIcon2.png' /> Log in to your account
+      <Image size="medium" src='/LogoV1.png' />
+          <Header as='h2' style={{ color:'#68C3D4' }} textAlign='center'>
+             Log in to your account
           </Header>
           <div>
-            {this.state.error ? <h1>Try again...</h1> : null}
+            {this.state.error ? <h1 style={{ color:'#68C3D4' }}>Try again...</h1> : null}
           </div>
           <Form size='large' onSubmit={this.handleSubmit}>
             <Segment stacked>
@@ -66,7 +67,7 @@ class Login extends Component {
                 value={this.state.formFields.password}
                 onChange={this.handleChange}
               />
-              <Button color='teal' fluid size='large'>
+              <Button fluid size='large'>
                 Log in
               </Button>
             </Segment>

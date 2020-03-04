@@ -39,28 +39,24 @@ class CharitiesContainer extends Component {
   // }
 
   charityCards = () => {
-    return  this.props.charityList.map (charity => {
-    return (
-      <div style={{ paddingRight:"10px", paddingTop:"10px" }}>
-        <CharityCard onShowCharityDetails={this.props.onShowCharityDetails} onGetCharityRequests={this.props.onGetCharityRequests} charity={charity} />
-      </div>
-      )
+    return  this.props.charityList.map ((charity, index) => {
+    return <CharityCard key={index} style={{ paddingRight:"10px", paddingTop:"10px" }} onShowCharityDetails={this.props.onShowCharityDetails} onGetCharityRequests={this.props.onGetCharityRequests} charity={charity} />
     })
   }
 
   render() {
     return(
-      <div>
+      <>
 
         {this.props.user.is_admin ? <Button as={Link} to="/charity/add" floated="right">Add New Charity / Organization</Button> : null}
 
-      <Container>
+      <Container style={{padding: '40px'}}>
         <Card.Group centered itemsPerRow={3}>
           {this.charityCards()}
         </Card.Group>
       </Container>
 
-      </div>
+      </>
     )
   }
 }
