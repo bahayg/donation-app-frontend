@@ -38,7 +38,11 @@ class App extends Component {
     if (token) {
       // make a request to the backend and find our user
       api.auth.getCurrentUser().then(data => {
+        if (data.user) {
         this.setState({ user: data.user });
+        } else {
+          this.logout()
+        }
       });
     }
   }
@@ -115,6 +119,8 @@ class App extends Component {
       )
   }
 
+
+
   addRequest = (requestInfo, charityId, userId) => {
     fetch(`http://localhost:3000/requests`, {
       method: "POST",
@@ -138,6 +144,26 @@ class App extends Component {
           charityRequests: [...prevState.charityRequests, data.request]
         }))
       )
+  }
+  
+  editUser = (userInfo) => {
+    fetch(`http://localhost:3000/users/${this.state.user.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem('token')
+      },
+      body: JSON.stringify({
+        user: userInfo
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          user: data
+        })     
+      })
   }
 
   editRequest = (requestInfo, requestId) => {
@@ -362,13 +388,13 @@ class App extends Component {
             exact
             render={props => (<AdminProfile 
               {...props} adminsCharities={this.state.adminsCharities} 
-              onShowCharityDetails={this.showCharityDetails} onGetCharityRequests={this.getCharityRequests} />)}
+              onShowCharityDetails={this.showCharityDetails} onGetCharityRequests={this.getCharityRequests} user={this.state.user}  onEditUser={this.editUser}/>)}
         />
 
       <Route
             path="/users/:username/requests"
             exact
-            render={props => <UserProfile {...props} user={this.state.user} userRequests={this.state.userRequests} onEditRequestStatusDonor={this.editRequestStatusDonor}/>}
+            render={props => <UserProfile {...props} user={this.state.user} userRequests={this.state.userRequests} onEditRequestStatusDonor={this.editRequestStatusDonor} onEditUser={this.editUser}/>}
         />  
       </Router>
     );

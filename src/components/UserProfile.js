@@ -1,8 +1,23 @@
 import React, { Component } from 'react';
-import { Button, Header, Segment, Table, Grid, Popup, Icon, Image } from 'semantic-ui-react'
+import EditUser from "../components/EditUser"
+import { Button, Header, Segment, Table, Grid, Popup, Icon, Image, Modal, Form } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 
 class UserProfile extends Component {
+    constructor(){
+        super()
+        this.state = { 
+            showEditUserModal: false
+        }
+    }
+    
+    closeModal  = (e) => {
+        this.setState({ showModal: false})
+    }
+
+    closeEditUserModal = (e) => {
+        this.setState({ showEditUserModal: false})
+    }
 
     handleStatusClick = (request) => {
         console.log("Dropped")
@@ -25,7 +40,10 @@ class UserProfile extends Component {
                         <p><label style={{ fontWeight:"600" }}><Icon name="user"/> Username:</label> {username}</p>
                         <p><label style={{ fontWeight:"600" }}><Icon name="mail"/> E-mail Address:</label> {email}</p>
                         <p><label style={{ fontWeight:"600" }}>Is Admin?:</label> {is_admin ? "Yes" : "No"}</p>
-                        <Button floated="left">Edit My Account</Button>
+
+                        <Modal as={Form} open={this.state.showEditUserModal} onClose={this.closeEditUserModal} size="tiny" trigger={<Button floated="left" onClick={() => this.setState({ showEditUserModal: true })}>Edit My Account</Button>}>
+                 <EditUser user={this.props.user} closeEditUserModal={this.closeEditUserModal} onEditUser={this.props.onEditUser} /></Modal>
+
                         <Button>Delete My Account</Button>
                     </Grid.Column>
                 </Grid>

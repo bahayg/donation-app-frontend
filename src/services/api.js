@@ -52,11 +52,19 @@ const deleteCharity  = (id) => {
     }).then(res =>res.json())
   }
 
+  const deleteUser  = (id) => {
+    return fetch(`http://localhost:3000/users/${id}`, {
+      method: 'DELETE',
+      headers: headers()
+    }).then(res =>res.json())
+  }
+
 export const api = {
     auth: {
         login,
         getCurrentUser,
-        signup
+        signup,
+        deleteUser
     },
     charities: {
         getCharities,

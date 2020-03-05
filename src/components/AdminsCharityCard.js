@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Image } from 'semantic-ui-react'
+import { Card, Image, Grid, Icon, Button, Segment } from 'semantic-ui-react'
 import { NavLink } from 'react-router-dom'
 
  class AdminsCharityCard extends Component {
@@ -10,6 +10,7 @@ import { NavLink } from 'react-router-dom'
     }
 
      render() {
+
          return(
 
             <Card onClick={() => this.handleClick() } as={NavLink} to={`charities/${this.props.charity.id}`} >
