@@ -38,11 +38,12 @@ class App extends Component {
     if (token) {
       // make a request to the backend and find our user
       api.auth.getCurrentUser().then(data => {
-        if (data.user) {
         this.setState({ user: data.user });
-        } else {
-          this.logout()
-        }
+        // if (data.user) {
+        //   this.setState({ user: data.user });
+        //   } else {
+        //     this.logout()
+        //   }
       });
     }
   }

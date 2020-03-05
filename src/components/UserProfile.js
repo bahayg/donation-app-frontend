@@ -33,19 +33,26 @@ class UserProfile extends Component {
 
             <Segment placeholder>
                 <Grid centered divided columns={2}>
+                    <Grid.Row>
                     <Grid.Column>
                         <Image size='medium' circular centered src={image} />
                     </Grid.Column>
                     <Grid.Column>
+                        <Grid.Row>
                         <p><label style={{ fontWeight:"600" }}><Icon name="user"/> Username:</label> {username}</p>
                         <p><label style={{ fontWeight:"600" }}><Icon name="mail"/> E-mail Address:</label> {email}</p>
                         <p><label style={{ fontWeight:"600" }}>Is Admin?:</label> {is_admin ? "Yes" : "No"}</p>
-
+                        </Grid.Row>
+                        <br></br>
+                        <br></br>
+                        <Grid.Row>
                         <Modal as={Form} open={this.state.showEditUserModal} onClose={this.closeEditUserModal} size="tiny" trigger={<Button floated="left" onClick={() => this.setState({ showEditUserModal: true })}>Edit My Account</Button>}>
                  <EditUser user={this.props.user} closeEditUserModal={this.closeEditUserModal} onEditUser={this.props.onEditUser} /></Modal>
+                        </Grid.Row>
 
                         <Button>Delete My Account</Button>
                     </Grid.Column>
+                    </Grid.Row>
                 </Grid>
             </Segment>
             

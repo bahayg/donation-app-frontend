@@ -51,31 +51,47 @@ class AdminsCharitiesDetails extends Component {
         return(
             <>
              {/* <Link to={`charities/${this.props.selectedCharity.city}/${this.props.selectedCharity.id}`} />   */}
-             <Button floated="right" onClick={this.handleDeleteCharity}>Delete Charity</Button> <br></br>
-             
-             <Modal as={Form} onClose={this.closeModal} open={this.state.showModal} size="tiny" trigger={<Button onClick={() => this.setState({ showModal: true })}>Add Request</Button>}>
-                 <AddRequest user={this.props.user} closeModal={this.closeModal} selectedCharity={this.props.selectedCharity} onAddRequest={this.props.onAddRequest} /></Modal>
 
                 <Segment placeholder>
-                <Grid centered divided columns={2}>
-                    <Grid.Column>
-                        <Image size='medium' centered src={image} />
-                    </Grid.Column>
-                    <Grid.Column>
-                        <p><label style={{ fontWeight:"600" }}>Name:</label> {name}</p>
-                        <p><label style={{ fontWeight:"600" }}>Address:<Icon name="map marker"/></label> {address}</p>
-                        <p><label style={{ fontWeight:"600" }}>Description:</label> {description}</p>
-                    </Grid.Column>
-                </Grid>
+                    <Grid columns={2}  >
+                        <Grid.Row>
+                            <Grid.Column>
+                                <Image size='medium' src={image} />
+                            </Grid.Column>
+                            <Grid.Column>
+                                <Grid.Row>
+                                    <p><label style={{ fontWeight:"600" }}>Name:</label> {name}</p>
+                                    <p><label style={{ fontWeight:"600" }}>Address:<Icon name="map marker"/></label> {address}</p>
+                                    <p><label style={{ fontWeight:"600" }}>Description:</label> {description}</p>
+                                </Grid.Row>
+                                    <br></br>
+                                    <br></br>
+                                <Grid.Row>
+                                    <Grid columns={5}>
+                                    <Grid.Column>
+                                        <Modal as={Form} onClose={this.closeModal} open={this.state.showModal} size="tiny" trigger={<Button floated="left" onClick={() => this.setState({ showModal: true })}>Add Request</Button>}>
+                                        <AddRequest user={this.props.user} closeModal={this.closeModal} selectedCharity={this.props.selectedCharity} onAddRequest={this.props.onAddRequest} /></Modal>
+                                    </Grid.Column>
+                                    <Grid.Column></Grid.Column>
+                                    <Grid.Column>
+                                        <Button centered>Edit Charity</Button> 
+                                    </Grid.Column>
+                                    <Grid.Column></Grid.Column>
+                                    <Grid.Column>
+                                        <Button floated="right" onClick={this.handleDeleteCharity}>Delete Charity</Button> 
+                                    </Grid.Column>
+                                    </Grid>
+                                </Grid.Row>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
                 </Segment>
 
-                 {/* <Grid columns={3} stackable textAlign='center'> */}
-
-            <Segment >
-                <Header as='h2' textAlign='center'>
-                    Current List of Requests by {`${this.props.selectedCharity.name}`}
-                </Header>
-            </Segment>
+                <Segment >
+                    <Header as='h2' textAlign='center'>
+                        Current List of Requests by {`${this.props.selectedCharity.name}`}
+                    </Header>
+                </Segment>
 
             <Table celled color={'green'}>
                    

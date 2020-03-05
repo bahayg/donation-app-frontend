@@ -48,8 +48,6 @@ class CharitiesContainer extends Component {
     return(
       <>
 
-        {this.props.user.is_admin ? <Button as={Link} to="/charity/add" floated="right">Add New Charity / Organization</Button> : null}
-
       <Container style={{padding: '40px'}}>
         <Card.Group centered itemsPerRow={3}>
           {this.charityCards()}
