@@ -51,7 +51,6 @@ class AdminsCharitiesDetails extends Component {
         return(
             <>
              {/* <Link to={`charities/${this.props.selectedCharity.city}/${this.props.selectedCharity.id}`} />   */}
-
                 <Segment placeholder>
                     <Grid columns={2}  >
                         <Grid.Row>
@@ -74,7 +73,7 @@ class AdminsCharitiesDetails extends Component {
                                     </Grid.Column>
                                     <Grid.Column></Grid.Column>
                                     <Grid.Column>
-                                        <Button centered>Edit Charity</Button> 
+                                        <Button>Edit Charity</Button> 
                                     </Grid.Column>
                                     <Grid.Column></Grid.Column>
                                     <Grid.Column>
@@ -162,9 +161,7 @@ class AdminsCharitiesDetails extends Component {
 
                             </Table.Row>
 
-                            // <Modal
-                            // Variations / Size /Mini
-                            // />
+                            // <Modal Variations / Size /Mini
                         )
                     })}
               

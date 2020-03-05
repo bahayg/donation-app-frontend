@@ -136,7 +136,7 @@ render() {
                 />
               </Form.Group> */}
               
-                  <Button color="cyan" fluid size='large'>
+                  <Button fluid size='large'>
                       Sign up
                 </Button>
               </Segment>

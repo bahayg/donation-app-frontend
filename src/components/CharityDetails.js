@@ -26,8 +26,6 @@ class CharityDetails extends Component {
             </Grid>
             </Segment>
 
-                {/* <Grid columns={3} stackable textAlign='center'> */}
-
             <Segment >
                 <Header as='h2' textAlign='center'>
                      Current List of Requests by {`${this.props.selectedCharity.name}`}

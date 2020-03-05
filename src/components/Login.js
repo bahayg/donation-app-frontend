@@ -23,9 +23,7 @@ class Login extends Component {
     e.preventDefault()
     api.auth.login(this.state.formFields)
       .then(data => {
-        // console.log(data)
         if (data.error) {
-          // console.log(data.error)
           this.setState({error: true});
         } else {
           this.props.onLogin(data)
@@ -38,7 +36,7 @@ class Login extends Component {
     return (
       <Grid textAlign='center' style={{ height: '75vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
-      <Image size="medium" src='/LogoV1.png' />
+        <Image size="medium" src='/LogoV1.png' />
           <Header as='h2' style={{ color:'#68C3D4' }} textAlign='center'>
              Log in to your account
           </Header>

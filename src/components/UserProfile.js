@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import EditUser from "../components/EditUser"
 import { Button, Header, Segment, Table, Grid, Popup, Icon, Image, Modal, Form } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
+import { api } from "../services/api";
 
 class UserProfile extends Component {
     constructor(){
@@ -24,13 +25,18 @@ class UserProfile extends Component {
         this.props.onEditRequestStatusDonor(request.id)
     }
 
+    handleDeleteUser = () => {
+        api.auth.deleteUser(this.props.user.id).then(() => {
+            this.props.onLogout();
+            this.props.history.push(`/login`);
+        })
+    }
+
     render() {
         const { username, is_admin, email, image } = this.props.user
-
         return(
             <>
              <Link to={`users/${this.props.user.username}/requests`} />  
-
             <Segment placeholder>
                 <Grid centered divided columns={2}>
                     <Grid.Row>
@@ -39,24 +45,22 @@ class UserProfile extends Component {
                     </Grid.Column>
                     <Grid.Column>
                         <Grid.Row>
-                        <p><label style={{ fontWeight:"600" }}><Icon name="user"/> Username:</label> {username}</p>
-                        <p><label style={{ fontWeight:"600" }}><Icon name="mail"/> E-mail Address:</label> {email}</p>
-                        <p><label style={{ fontWeight:"600" }}>Is Admin?:</label> {is_admin ? "Yes" : "No"}</p>
+                            <p><label style={{ fontWeight:"600" }}><Icon name="user"/> Username:</label> {username}</p>
+                            <p><label style={{ fontWeight:"600" }}><Icon name="mail"/> E-mail Address:</label> {email}</p>
+                            <p><label style={{ fontWeight:"600" }}>Is Admin?:</label> {is_admin ? "Yes" : "No"}</p>
                         </Grid.Row>
-                        <br></br>
-                        <br></br>
+                            <br></br>
+                            <br></br>
                         <Grid.Row>
-                        <Modal as={Form} open={this.state.showEditUserModal} onClose={this.closeEditUserModal} size="tiny" trigger={<Button floated="left" onClick={() => this.setState({ showEditUserModal: true })}>Edit My Account</Button>}>
-                 <EditUser user={this.props.user} closeEditUserModal={this.closeEditUserModal} onEditUser={this.props.onEditUser} /></Modal>
+                            <Modal as={Form} open={this.state.showEditUserModal} onClose={this.closeEditUserModal} size="tiny" trigger={<Button floated="left" onClick={() => this.setState({ showEditUserModal: true })}>Edit My Account</Button>}>
+                            <EditUser user={this.props.user} closeEditUserModal={this.closeEditUserModal} onEditUser={this.props.onEditUser} /></Modal>
                         </Grid.Row>
-
-                        <Button>Delete My Account</Button>
+                        <Button onClick={this.handleDeleteUser}>Delete My Account</Button>
                     </Grid.Column>
                     </Grid.Row>
                 </Grid>
             </Segment>
             
-             
             <Segment >
                 <Header as='h2' textAlign='center'>
                         Current List of Requests 
@@ -117,7 +121,6 @@ class UserProfile extends Component {
                             </Table.Row>
                         )
                     })}
-
             </Table.Body>
             </Table>
             </>

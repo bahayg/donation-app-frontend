@@ -3,7 +3,7 @@ import AdminsCharityCard from "../components/AdminsCharityCard";
 import EditUser from "../components/EditUser";
 import { api } from "../services/api";
 import { Link } from "react-router-dom";
-import { Button, Header, Segment, Table, Grid, Popup, Icon, Image, Card, Container, Modal, Form } from 'semantic-ui-react'
+import { Button, Segment, Grid, Icon, Image, Card, Container, Modal, Form } from 'semantic-ui-react'
 
 class AdminProfile extends Component {
 
@@ -23,8 +23,10 @@ class AdminProfile extends Component {
     }
 
     handleDeleteUser = () => {
-        api.auth.deleteUser(this.props.user.id) 
-        this.props.history.push(`/login`)
+        api.auth.deleteUser(this.props.user.id).then(() => {
+            this.props.onLogout();
+            this.props.history.push(`/login`);
+        })
     }
 
     adminsCharityCards = () => {

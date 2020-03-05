@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Image, Grid, Icon, Button, Segment } from 'semantic-ui-react'
+import { Card, Image } from 'semantic-ui-react'
 import { NavLink } from 'react-router-dom'
 
  class AdminsCharityCard extends Component {

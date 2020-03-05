@@ -69,11 +69,9 @@ class EditUser extends Component {
                             onChange={this.handleAdminChange}
                         />
                         <br></br>
-
                         <Form.Field>
                             <Button fluid type='submit' >Submit</Button>
                         </Form.Field>
-
                     </Form> 
                     </Modal.Content>
                  </>
