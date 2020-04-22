@@ -3,16 +3,16 @@ import './App.css';
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import MainPage from "./components/MainPage";
+import NavBar from "./components/NavBar";
 import CharitiesContainer from "./containers/CharitiesContainer";
 import CharityDetails from "./components/CharityDetails";
 import AdminsCharitiesDetails from "./components/AdminsCharitiesDetails";
 import CharityAddForm from "./components/CharityAddForm";
 import AdminProfile from "./components/AdminProfile";
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { api } from "./services/api";
-import NavBar from "./components/NavBar";
 import UserProfile from './components/UserProfile';
 import Footer from './components/Footer';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { api } from "./services/api";
 
 class App extends Component {
   constructor() {
@@ -51,9 +51,9 @@ class App extends Component {
   getCharities = () => {
     api.charities.getCharities().then(data => {
       // this.setState({ allCharities: data }, () => console.log(this.state.allCharities[0].city))
-      if (!data.message) {
+      // if (!data.message) {
         this.setState({ allCharities: data })
-      }
+      // }
     })
   }
 
@@ -70,17 +70,6 @@ class App extends Component {
       );
   };
 
-  getCharityRequests = (id) => {
-    return fetch(`http://localhost:3000/users/${this.state.user.id}/charities/${id}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem('token')
-      }
-    }).then(res => res.json())
-      .then(data => this.setState({ charityRequests: data }));
-  };
-
   getUsersRequests = () => {
     return fetch(`http://localhost:3000/users/${this.state.user.id}/requests`, {
       headers: {
@@ -92,6 +81,17 @@ class App extends Component {
       .then(data => 
         this.setState({ userRequests: data }));
   }
+
+  getCharityRequests = (id) => {
+    return fetch(`http://localhost:3000/users/${this.state.user.id}/charities/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem('token')
+      }
+    }).then(res => res.json())
+      .then(data => this.setState({ charityRequests: data }));
+  };
 
   addNewCharity = (charityInfo, userId) => {
     fetch(`http://localhost:3000/charities`, {
@@ -159,6 +159,10 @@ class App extends Component {
         })     
       })
   }
+
+  // editCharity = () => {
+
+  // }
 
   editRequest = (requestInfo, requestId) => {
     fetch(`http://localhost:3000/requests/${requestId}`, {
@@ -238,6 +242,7 @@ class App extends Component {
 
   //UPDATE REQUEST TO BE TIED TO A SPECIFIC USER
   editRequestStatusAndId = (request, status) => {
+    if (this.state.user.id) {
     fetch(`http://localhost:3000/requests/${request.id}`, {
       method: "PATCH",
       headers: {
@@ -259,6 +264,9 @@ class App extends Component {
           charityRequests: copyOfRequests
         })     
       })
+    } else {
+      alert("Please Log In")
+    }
   }
 
   showCharityDetails = charity => {
@@ -330,7 +338,8 @@ class App extends Component {
           render={props => (<MainPage 
             {...props} 
             allCharities={this.state.allCharities} 
-            changeCity={this.changeCity} />)}
+            changeCity={this.changeCity}
+            getCharities={this.getCharities} />)}
         />
         
         <Route
@@ -345,15 +354,6 @@ class App extends Component {
         />
 
         <Route
-          path="/charity/add"
-          exact
-          render={props => (<CharityAddForm 
-            {...props} 
-            user={this.state.user} 
-            onAddNewCharity={this.addNewCharity}/>)}
-        />
-
-        <Route
             path="/charities/:city/:id" 
             exact
             render={props => (<CharityDetails 
@@ -363,6 +363,28 @@ class App extends Component {
               charityRequests={this.state.charityRequests} 
               onEditRequestStatus={this.editRequestStatus} 
               onEditRequestStatusAndId={this.editRequestStatusAndId}/>)}
+        />
+
+        <Route
+          path="/charity/add"
+          exact
+          render={props => (<CharityAddForm 
+            {...props} 
+            user={this.state.user} 
+            onAddNewCharity={this.addNewCharity}/>)}
+        />
+
+        <Route
+            path="/users/:username/charities"
+            exact
+            render={props => (<AdminProfile 
+              {...props} 
+              onLogout={this.logout} 
+              adminsCharities={this.state.adminsCharities} 
+              onShowCharityDetails={this.showCharityDetails} 
+              onGetCharityRequests={this.getCharityRequests} 
+              user={this.state.user}  
+              onEditUser={this.editUser}/>)}
         />
 
         <Route
@@ -382,19 +404,6 @@ class App extends Component {
             />)}
         />
 
-        <Route
-            path="/users/:username/charities"
-            exact
-            render={props => (<AdminProfile 
-              {...props} 
-              onLogout={this.logout} 
-              adminsCharities={this.state.adminsCharities} 
-              onShowCharityDetails={this.showCharityDetails} 
-              onGetCharityRequests={this.getCharityRequests} 
-              user={this.state.user}  
-              onEditUser={this.editUser}/>)}
-        />
-
       <Route
             path="/users/:username/requests"
             exact
@@ -405,7 +414,9 @@ class App extends Component {
               onEditRequestStatusDonor={this.editRequestStatusDonor} 
               onEditUser={this.editUser}/>)}
         />  
-        <Footer
+        <Route
+          path="/"
+          render={props => <Footer {...props} />}
         />
       </Router>
     );

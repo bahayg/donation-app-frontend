@@ -72,9 +72,9 @@ class AdminsCharitiesDetails extends Component {
                                         <AddRequest user={this.props.user} closeModal={this.closeModal} selectedCharity={this.props.selectedCharity} onAddRequest={this.props.onAddRequest} /></Modal>
                                     </Grid.Column>
                                     <Grid.Column></Grid.Column>
-                                    <Grid.Column>
+                                    {/* <Grid.Column>
                                         <Button>Edit Charity</Button> 
-                                    </Grid.Column>
+                                    </Grid.Column> */}
                                     <Grid.Column></Grid.Column>
                                     <Grid.Column>
                                         <Button floated="right" onClick={this.handleDeleteCharity}>Delete Charity</Button> 
@@ -103,25 +103,25 @@ class AdminsCharitiesDetails extends Component {
                     <Popup  wide="very" inverted trigger={<Button icon='help circle' />} >
                         <Grid centered divided columns={4}>
                             <Grid.Column textAlign='center'>
-                                <Header as='h4'>Open</Header>
+                                <Header as='h3' color="green">open</Header>
                                 <p>
                                     The item is listed. You can edit and/or remove it from your list.
                                 </p>
                             </Grid.Column>
                             <Grid.Column textAlign='center'>
-                                <Header as='h4'>Pending</Header>
+                                <Header as='h3' color="orange">pending</Header>
                                 <p>
                                     A volunteer is waiting for approval to donate this item. Click to "Approve" and wait for the volunteer to deliver it. 
                                 </p>
                             </Grid.Column>
                             <Grid.Column textAlign='center'>
-                                <Header as='h4'>Approved</Header>
+                                <Header as='h3' color= "brown">approved</Header>
                                 <p>
                                     Wait for the volunteer to deliver this item and then click to "Close" after it is delivered.
                                 </p>
                             </Grid.Column>
                             <Grid.Column textAlign='center'>
-                                <Header as='h4'>Closed</Header>
+                                <Header as='h3' color="red">closed</Header>
                                     <p>
                                         The item is donated. You can remove it from your list.
                                     </p>

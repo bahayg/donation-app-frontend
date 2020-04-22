@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Image, Segment, Grid, Header, List, Container, Divider } from 'semantic-ui-react';
-import { getByTitle } from '@testing-library/react';
 
 class Footer extends Component{
 
@@ -19,7 +18,7 @@ class Footer extends Component{
                   </List>
                 </Grid.Column>
 
-                <Grid.Column width="7">
+                <Grid.Column width="8">
                   <Header inverted as='h4' content='Thank you for supporting Reunited Hands!' />
                       <List link inverted>
                     <List.Item as='a' href='/login'>Donate Now!</List.Item>

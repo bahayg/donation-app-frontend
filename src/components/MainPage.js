@@ -5,6 +5,7 @@ class MainPage extends Component {
 
     componentDidMount() {
         this.uniqCities()
+        this.props.getCharities()
     }
     
     uniqCities = () => {
@@ -26,9 +27,10 @@ class MainPage extends Component {
     render () {
         return (
             <>
-            <Grid columns={3}  style={{ paddingTop: '1.5rem', paddingBottom: '0.5rem' }}textAlign='center'>
-                <Grid.Column>
-                <Segment circular style = {{ width: 325, height: 325 }}>
+            <div className='home-segment'>
+            <Grid columns={3}  style={{ paddingTop: '2.5rem', paddingBottom: '1.5rem' }}textAlign='center'>
+                <Grid.Column >
+                <Segment circular style = {{ width: 350, height: 350, opacity: 0.85 }}>
                     <Header as='h1' textAlign='center'>
                         Welcome to Reunited Hands
                         <br></br>
@@ -40,21 +42,16 @@ class MainPage extends Component {
                 </Grid.Column>
             </Grid>
 
-                <Segment >
-                    <Header as='h3' textAlign='center'>
-                        Select a city to explore local organizations
-                    </Header>
-                </Segment>
-
-            <Grid columns={3}  textAlign='center'>
+            <Grid columns={3}  textAlign='center' fontSize="large">
                 <Grid.Column>
-                <Dropdown item text= 'Select City'>
+                <Dropdown className='city-dropdown' item direction="left" text= 'Select a City to Explore Local Organizations'>
                     <Dropdown.Menu>
                         <Dropdown.Item  onClick={(e) => this.handleCitySelect(e)}>{this.uniqCities()}</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
                 </Grid.Column>
             </Grid>
+            </div>
             </>
         )
     }

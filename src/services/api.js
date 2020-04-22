@@ -34,7 +34,7 @@ const signup = user =>
 
 const getCharities = () => {
     return fetch(`http://localhost:3000/charities`, {
-        headers: headers()
+        // headers: headers()
     }).then(res => res.json())
 }
 

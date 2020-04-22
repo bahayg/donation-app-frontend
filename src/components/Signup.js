@@ -53,7 +53,7 @@ render() {
         { key: 2, text: 'I want to help - Donor', value: 'false' },
       ]
     return (
-        <Grid textAlign='center' style={{ height: '86vh' }} verticalAlign='middle'>
+        <Grid textAlign='center' style={{ padding: '20px' }} verticalAlign='middle'>
           <Grid.Column style={{ maxWidth: 450 }}>
           <Image size="medium" src='/LogoV1.png' />
             <Header as='h2' style={{ color:'#68C3D4' }} textAlign='center'>

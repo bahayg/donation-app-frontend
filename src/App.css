@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -11,9 +11,9 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
+} */
 
-.App-header {
+/* .App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -22,9 +22,9 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
+} */
 
-.App-link {
+/* .App-link {
   color: #61dafb;
 }
 
@@ -35,6 +35,15 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+#root {
+  /* height: 100vh; */
+  top: 0px;
+  left: 0px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
 }
 
 img.ui.medium.image {
@@ -57,43 +66,62 @@ html {
   width: auto!important;
 }
 
+.ui[class*="center aligned"].grid {
+  justify-content: center;
+  padding-bottom: 6rem;
+}
+
 p {
   font-size: 1.2rem;
   font-family: sans-serif;
   font-style: initial;
 }
 
-h1.ui.center.aligned.header {
+/* h1.ui.center.aligned.header {
   font-family: sans-serif;
   color: #AE76A6;
-}
+} */
 
-h3.ui.center.aligned.header {
+/* h3.ui.center.aligned.header {
   color: #AE76A6;
-}
-
-/* .ui.dropdown {
-  font-size: large;
 } */
 
 li {
   padding: 0.5rem;
 }
 
-/* .ui.dropdown .menu>.item:first-child {
-  font-size: large;
-} */
-
-.ui.dropdown>.text {
-  /* padding-top: 1rem;
-  padding-bottom: 1rem; */
-  color: #654597;
+.city-dropdown.ui.dropdown .menu>.item:first-child {
+  font-size: medium;
 }
 
-/* .ui.upward.dropdown>.menu {
-  background-color: #AE76A6;
-} */
+.ui.dropdown.city-dropdown>.text {
+  display: inline-block;
+  font-size: 24px;
+  font-weight: 900;
+  padding-bottom: 1rem;
+}
 
-/* .ui.dropdown .menu {
-  padding-top: 0.5rem;
-} */
+.city-dropdown.ui.dropdown .menu {
+  padding-left: 1rem;
+  padding-right: 4rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  background: #F7F0F0;
+  font-size: 2em;
+  text-shadow: none;
+  text-align: left;
+  /* box-shadow: 0 2px 3px 0 rgba(34,36,38,.15); */
+  border: 2px solid rgba(34,36,38,.15);
+  border-radius: .28571429rem;
+  /* transition: opacity .1s ease; */
+  z-index: 11;
+  will-change: transform,opacity;
+}
+
+.home-segment{
+  background-image: url('/BackgroundImage.jpg')!important;
+  /* background-repeat: no-repeat; */
+  background-size: cover;
+  /* overflow-x: hidden */
+  padding: 10px;
+}

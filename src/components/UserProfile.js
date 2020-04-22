@@ -78,21 +78,21 @@ class UserProfile extends Component {
                     <Popup  wide inverted trigger={<Button icon='help circle' />} >
                         <Grid centered divided columns={3}>
                             <Grid.Column textAlign='center'>
-                                <Header as='h4'>Pending</Header>
+                                <Header as='h3' color="orange">pending</Header>
                                     <p>
                                     Wait for approval to donate this item or click to "Drop", if you do not want to donate it anymore.
                                     </p>
                             </Grid.Column>
 
                             <Grid.Column textAlign='center'>
-                                <Header as='h4'>Approved</Header>
+                                <Header as='h3' color="brown">approved</Header>
                                     <p>
                                     You can deliver this item or click to "Drop", if you do not want to donate it anymore.
                                     </p>
                             </Grid.Column>
                                     
                             <Grid.Column textAlign='center'>
-                                <Header as='h4'>Closed</Header>
+                                <Header as='h3' color="red">closed</Header>
                                     <p>
                                     You already donated this item.
                                     </p>

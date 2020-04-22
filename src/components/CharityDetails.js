@@ -42,14 +42,14 @@ class CharityDetails extends Component {
                     <Popup  wide inverted trigger={<Button icon='help circle' />} >
                         <Grid centered divided columns={2}>
                             <Grid.Column textAlign='center'>
-                                <Header as='h4'>Open</Header>
+                                <Header as='h3' color="green">open</Header>
                                 <p>
                                     Click to "Donate" to donate this item and wait for approval.
                                 </p>
                                 </Grid.Column>
 
                                 <Grid.Column textAlign='center'>
-                                    <Header as='h4'>Pending</Header>
+                                    <Header as='h3' color="orange">pending</Header>
                                     <p>
                                         Another user is waiting for approval to donate this item, 
                                         you can not donate it.
