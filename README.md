@@ -23,15 +23,13 @@ Features that take username, password, e-mail address, profile picture, and user
 
 ## Setup/Installation Requirements
 
+* Go to https://github.com/bahayg/donation-app-backend and set the backend up. 
 * Fork and clone this repository.
 * Navigate to the top level of the cloned directory.
-* Run bundle install
-* Run rails db:migrate
-* Run rails db:seed
-* Run rails s
-* Then, open your preferred web browser by navigating to "http://localhost:3000" to view it.
-
-Go to https://github.com/bahayg/donation-app-backend for the backend.
+* Run npm install
+* Run npm start
+* Open your preferred web browser by navigating to "http://localhost:3000" to view it.
+* Create your account.
 
 <!-- ## Known Bugs
 
