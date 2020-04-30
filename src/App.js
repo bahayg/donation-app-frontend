@@ -242,7 +242,7 @@ class App extends Component {
 
   //UPDATE REQUEST TO BE TIED TO A SPECIFIC USER
   editRequestStatusAndId = (request, status) => {
-    if (this.state.user.id) {
+    // if (this.state.user.id) {
     fetch(`http://localhost:3000/requests/${request.id}`, {
       method: "PATCH",
       headers: {
@@ -264,9 +264,9 @@ class App extends Component {
           charityRequests: copyOfRequests
         })     
       })
-    } else {
-      alert("Please Log In")
-    }
+    // } else {
+      // alert("Please Log In")
+    // }
   }
 
   showCharityDetails = charity => {

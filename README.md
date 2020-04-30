@@ -5,7 +5,7 @@
 
 ## Description
 
-Built an application to connect individuals with surplus items to local organizations and charities who are in need.
+Built an application to connect donors to local charities and nonprofit organizations who are looking for volunteers.
 
 ### Website has:
 
@@ -13,9 +13,9 @@ Features that take username, password, e-mail address, profile picture, and user
 
 - Stores encrypted user information client-side.
 - Lets users (admin or not) create / edit / delete their account. 
-- Allows admin create / delete an organization or charity and create / edit / delete a request item.
+- Allows admin create / delete an nonprofit organization or charity and create / edit / delete a request item.
 - Shows a list of cities in Washington state and lets user choose one.
-- Returns a list of charities in the selected city. 
+- Returns a list of nonprofits in the selected city. 
 - Shows users the details of the selected charity and listed requests by that charity.
 - Helps users find a request item to donate or cancel a donation. 
 - Allows admins view charities and requests they created, and approve pending donations in their profile pages.

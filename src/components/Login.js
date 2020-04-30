@@ -43,7 +43,7 @@ class Login extends Component {
           <div>
             {this.state.error ? <h1 style={{ color:'#68C3D4' }}>Try again...</h1> : null}
           </div>
-          <Form size='large' onSubmit={this.handleSubmit}>
+          <Form autocomplete="off" size='large' onSubmit={this.handleSubmit}>
             <Segment stacked>
               <Form.Input 
                 fluid 

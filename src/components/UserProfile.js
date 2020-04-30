@@ -21,7 +21,7 @@ class UserProfile extends Component {
     }
 
     handleStatusClick = (request) => {
-        console.log("Dropped")
+        // console.log("Dropped")
         this.props.onEditRequestStatusDonor(request.id)
     }
 

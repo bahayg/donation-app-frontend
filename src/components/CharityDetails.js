@@ -5,7 +5,11 @@ import { Link } from 'react-router-dom';
 class CharityDetails extends Component {
 
     handleStatusClick = (request, status) => {
-        this.props.onEditRequestStatusAndId(request, status)
+        if (this.props.user.id) {
+            this.props.onEditRequestStatusAndId(request, status)
+        } else {
+            this.props.history.push("/login")
+        }
     }
 
     render() {
