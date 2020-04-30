@@ -23,9 +23,15 @@ Features that take username, password, e-mail address, profile picture, and user
 
 ## Setup/Installation Requirements
 
-* Clone this repository.
+* Fork and clone this repository.
 * Navigate to the top level of the cloned directory.
+* Run bundle install
+* Run rails db:migrate
+* Run rails db:seed
+* Run rails s
 * Then, open your preferred web browser by navigating to "http://localhost:3000" to view it.
+
+Go to https://github.com/bahayg/donation-app-backend for the backend.
 
 <!-- ## Known Bugs
 
@@ -37,7 +43,7 @@ bahayg@gmail.com
 
 ## Technologies Used
 
-React.js, JavaScript, Ruby, Ruby on Rails, Semantic UI React, and Git.      
+React.js, JavaScript, Ruby, Ruby on Rails, PostgreSQL, Semantic UI React, and Git.      
 
 ### License
 
