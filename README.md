@@ -31,6 +31,7 @@ Features that take username, password, e-mail address, profile picture, and user
 * Open your preferred web browser by navigating to "http://localhost:3000" to view it.
 * Create your account.
 
+Watch the demo at https://youtu.be/P3CpGR8q9cw
 <!-- ## Known Bugs
 
 * Work in progress; there are no known bugs at this time. -->
