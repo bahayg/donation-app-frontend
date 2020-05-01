@@ -28,7 +28,7 @@ Features that take username, password, e-mail address, profile picture, and user
 * Navigate to the top level of the cloned directory.
 * Run npm install
 * Run npm start
-* Open your preferred web browser by navigating to "http://localhost:3000" to view it.
+* Open your preferred web browser by navigating to "http://localhost:3001" to view it.
 * Create your account.
 
 Watch the demo at https://youtu.be/P3CpGR8q9cw
