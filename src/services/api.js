@@ -13,7 +13,7 @@ const login = data =>
         method: "POST",
         headers: headers(),
         body: JSON.stringify(data)
-    }).then(r => r.json())
+    }).then(res => res.json())
 
 const getCurrentUser = () => {
     return fetch(`${API_ROOT}/auth/current_user`, {
@@ -35,6 +35,25 @@ const signup = user =>
 const getCharities = () => {
     return fetch(`http://localhost:3000/charities`, {
         // headers: headers()
+    }).then(res => res.json())
+}
+
+const getAdminsCharities = (userId) => {
+    return fetch(`http://localhost:3000/users/${userId}/charities`, {
+      headers: headers()
+    })
+      .then(res => res.json())
+};
+
+const getUserRequests = (userId) => {
+    return fetch(`http://localhost:3000/users/${userId}/requests`, {
+      headers: headers()
+    }).then(res => res.json())
+}
+
+const getCharityRequests = (charityId, userId) => {
+    return fetch(`http://localhost:3000/users/${userId}/charities/${charityId}`, {
+      headers: headers()
     }).then(res => res.json())
 }
 
@@ -68,9 +87,12 @@ export const api = {
     },
     charities: {
         getCharities,
-        deleteCharity
+        deleteCharity,
+        getAdminsCharities
     },
     requests: {
-        deleteRequest
+        deleteRequest,
+        getUserRequests,
+        getCharityRequests
     }
 };

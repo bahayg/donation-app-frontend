@@ -58,40 +58,19 @@ class App extends Component {
   }
 
   getAdminsCharities = () => {
-    return fetch(`http://localhost:3000/users/${this.state.user.id}/charities`, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem('token')
-      }
-    })
-      .then(res => res.json())
-      .then(data => this.setState({ adminsCharities: data })
-      );
-  };
-
-  getUsersRequests = () => {
-    return fetch(`http://localhost:3000/users/${this.state.user.id}/requests`, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem('token')
-      }
-    }).then(res => res.json())
-      .then(data => 
-        this.setState({ userRequests: data }));
+    api.charities.getAdminsCharities(this.state.user.id)
+    .then(data => this.setState({ adminsCharities: data }))
   }
 
-  getCharityRequests = (id) => {
-    return fetch(`http://localhost:3000/users/${this.state.user.id}/charities/${id}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem('token')
-      }
-    }).then(res => res.json())
-      .then(data => this.setState({ charityRequests: data }));
-  };
+  getUserRequests = () => {
+    api.requests.getUserRequests(this.state.user.id)
+    .then(data => this.setState({ userRequests: data }))
+  }
+
+  getCharityRequests = (charityId) => {
+    api.requests.getCharityRequests(charityId, this.state.user.id)
+    .then(data => this.setState({ charityRequests: data }))
+  }
 
   addNewCharity = (charityInfo, userId) => {
     fetch(`http://localhost:3000/charities`, {
@@ -317,7 +296,7 @@ class App extends Component {
           user={this.state.user}
           onLogout={this.logout}
           onGetAdminsCharities={this.getAdminsCharities}
-          onGetUserRequests={this.getUsersRequests}
+          onGetUserRequests={this.getUserRequests}
         />
 
         <Route
