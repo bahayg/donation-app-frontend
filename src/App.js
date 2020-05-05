@@ -86,22 +86,8 @@ class App extends Component {
   }
 
   editUser = (userInfo) => {
-    fetch(`http://localhost:3000/users/${this.state.user.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem('token')
-      },
-      body: JSON.stringify({
-        user: userInfo
-      })
-    }).then(res => res.json())
-      .then(data => {
-        this.setState({
-          user: data
-        })     
-      })
+    api.auth.editUser(userInfo, this.state.user.id)
+    .then(data => { this.setState({ user: data }) })
   }
 
   // editCharity = () => {
@@ -109,22 +95,8 @@ class App extends Component {
   // }
 
   editRequest = (requestInfo, requestId) => {
-    fetch(`http://localhost:3000/requests/${requestId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem('token')
-      },
-      body: JSON.stringify({
-        expiration_date: requestInfo.expiration_date,
-        info: requestInfo.info,
-        category: requestInfo.category
-      })
-    })
-      .then(res => res.json())
+    api.requests.editRequest(requestInfo, requestId) 
       .then(data => {
-
         let updatedRequest = this.state.charityRequests.findIndex(request => request.id === requestId)
         let copyOfRequests = Object.assign([], this.state.charityRequests)
         copyOfRequests[updatedRequest] = data
@@ -135,20 +107,10 @@ class App extends Component {
   }
 
   //ADMIN APPROVES DONATION
-  editRequestStatus = (id, status) => {
-    fetch(`http://localhost:3000/requests/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem('token')
-      },
-      body: JSON.stringify({
-        status: status
-      })
-    }).then(res => res.json())
+  editRequestStatus = (requestId, status) => {
+    api.requests.editRequestStatus(requestId, status)
       .then(data => {
-        let updatedRequest = this.state.charityRequests.findIndex(request => request.id === id)
+        let updatedRequest = this.state.charityRequests.findIndex(request => request.id === requestId)
         let copyOfRequests = Object.assign([], this.state.charityRequests)
         copyOfRequests[updatedRequest] = data
         this.setState({
@@ -158,23 +120,11 @@ class App extends Component {
   }
 
   //TO CANCEL A DONATION BY A USER
-  editRequestStatusDonor = (id) => {
-    fetch(`http://localhost:3000/requests/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem('token')
-      },
-      body: JSON.stringify({
-        //USER_ID IS 1 TO SET TO ADMIN
-        request: {user_id: 1,
-        status: "open"}
-      })
-    }).then(res => res.json())
+  editRequestStatusDonor = (requestId) => {
+    api.requests.editRequestStatusDonor(requestId)
       .then(data => {
-        let updatedUserRequest = this.state.userRequests.filter(r => r.id !== id)
-        let updatedCharityRequest = this.state.charityRequests.findIndex(r => r.id === id)
+        let updatedUserRequest = this.state.userRequests.filter(r => r.id !== requestId)
+        let updatedCharityRequest = this.state.charityRequests.findIndex(r => r.id === requestId)
         let copyOfCharityRequests = Object.assign([], this.state.charityRequests)
         copyOfCharityRequests[updatedCharityRequest] = data
            this.setState({
@@ -186,19 +136,7 @@ class App extends Component {
 
   //UPDATE REQUEST TO BE TIED TO A SPECIFIC USER
   editRequestStatusAndId = (request, status) => {
-    // if (this.state.user.id) {
-    fetch(`http://localhost:3000/requests/${request.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem('token')
-      },
-      body: JSON.stringify({
-        user_id: this.state.user.id,
-        status: status
-      })
-    }).then(res => res.json())
+    api.requests.editRequestStatusAndId(request, status, this.state.user.id)
       .then(data => {
         let updatedRequest = this.state.charityRequests.findIndex(r => r.id === request.id)
         let copyOfRequests = Object.assign([], this.state.charityRequests)
@@ -208,9 +146,6 @@ class App extends Component {
           charityRequests: copyOfRequests
         })     
       })
-    // } else {
-      // alert("Please Log In")
-    // }
   }
 
   showCharityDetails = charity => {

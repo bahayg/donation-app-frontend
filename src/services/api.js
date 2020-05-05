@@ -87,6 +87,62 @@ const addRequest = (requestInfo, charityId, userId) => {
     }).then(res => res.json())
 }
 
+const editUser = (userInfo, userId) => {
+    return fetch(`http://localhost:3000/users/${userId}`, {
+      method: "PUT",
+      headers: headers(),
+      body: JSON.stringify({
+        user: userInfo
+      })
+    }).then(res => res.json())
+}
+
+const editRequest = (requestInfo, requestId) => {
+    return fetch(`http://localhost:3000/requests/${requestId}`, {
+      method: "PATCH",
+      headers: headers(),
+      body: JSON.stringify({
+        expiration_date: requestInfo.expiration_date,
+        info: requestInfo.info,
+        category: requestInfo.category
+      })
+    })
+      .then(res => res.json())
+}
+
+const editRequestStatus = (requestId, status) => {
+    return fetch(`http://localhost:3000/requests/${requestId}`, {
+      method: "PATCH",
+      headers: headers(),
+      body: JSON.stringify({
+        status: status
+      })
+    }).then(res => res.json())
+}
+
+const editRequestStatusDonor = (requestId) => {
+    return fetch(`http://localhost:3000/requests/${requestId}`, {
+      method: "PUT",
+      headers: headers(),
+      body: JSON.stringify({
+        //USER_ID IS 1 TO SET TO ADMIN
+        request: {user_id: 1,
+        status: "open"}
+      })
+    }).then(res => res.json())
+}
+
+const editRequestStatusAndId = (request, status, userId) => {
+    return fetch(`http://localhost:3000/requests/${request.id}`, {
+      method: "PATCH",
+      headers: headers(),
+      body: JSON.stringify({
+        user_id: userId,
+        status: status
+      })
+    }).then(res => res.json())
+}
+
 const deleteCharity  = (id) => {
     return fetch(`http://localhost:3000/charities/${id}`, {
       method: 'DELETE',
@@ -113,7 +169,9 @@ export const api = {
         login,
         getCurrentUser,
         signup,
-        deleteUser
+        deleteUser,
+        editUser
+
     },
     charities: {
         getCharities,
@@ -125,6 +183,10 @@ export const api = {
         deleteRequest,
         getUserRequests,
         getCharityRequests,
-        addRequest
+        addRequest, 
+        editRequest,
+        editRequestStatus,
+        editRequestStatusDonor,
+        editRequestStatusAndId
     }
 };
