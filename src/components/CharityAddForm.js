@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Form, Button, Header } from 'semantic-ui-react'
+import { api } from "../services/api";
 
 class CharityAddForm extends Component {
 
@@ -20,10 +21,14 @@ class CharityAddForm extends Component {
         })
     }
 
-    handleSubmit = (e) => {
+    handleAddCharity = (e) => {
         e.preventDefault()
-        this.props.onAddNewCharity(this.state, this.props.user.id)
-        this.props.history.push('/home')
+        api.charities.addNewCharity(this.state, this.props.user.id)
+        .then(data => {
+            this.props.onAddNewCharity(data)
+            this.props.history.push(`/home`)
+            // this.props.history.push(`/users/${this.props.user.username}/charities`)
+        })
     }
 
     render() {
@@ -34,7 +39,7 @@ class CharityAddForm extends Component {
                 Organization / Charity Add Form
             </Header>
                 <br></br>
-            <Form style={{ paddingRight:"500px", paddingLeft:"40px" }} onSubmit={e => this.handleSubmit(e)} onChange={e => this.handleChange(e)}>
+            <Form style={{ paddingRight:"500px", paddingLeft:"40px" }} onSubmit={e => this.handleAddCharity(e)} onChange={e => this.handleChange(e)}>
                 <Form.Field >
                     <label>Name of the Organization</label>
                     <input placeholder='Name' type="text" name="name" defaultValue={name}/>

@@ -28,7 +28,6 @@ class AdminsCharitiesDetails extends Component {
         .then((data) => {
             this.props.deleteCharitySet(data.id)
             this.props.history.push(`/users/${this.props.user.username}/charities`)
-            // this.props.history.push('/home')
         })
     }
 
@@ -37,8 +36,8 @@ class AdminsCharitiesDetails extends Component {
         .then(data => {
             this.props.onCharityRequestDelete(data.id)
             this.props.history.push(`/users/${this.props.user.username}/charities/${this.props.selectedCharity.id}`)
-    })
-}
+        })
+    }
 
     handleStatusClick = (request, status) => {
         // console.log("Approved")

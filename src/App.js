@@ -72,54 +72,19 @@ class App extends Component {
     .then(data => this.setState({ charityRequests: data }))
   }
 
-  addNewCharity = (charityInfo, userId) => {
-    fetch(`http://localhost:3000/charities`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem('token')
-      },
-      body: JSON.stringify({
-        user_id: userId,
-        name: charityInfo.name,
-        image: charityInfo.image,
-        address: charityInfo.address,
-        city: charityInfo.city,
-        description: charityInfo.description
-      })
-    }).then(res => res.json())
-      .then(data =>
+  addNewCharity = (data) => {
         this.setState(prevState => ({
           allCharities: [...prevState.allCharities, data.charity]
         }))
-      )
-  }
-
-  addRequest = (requestInfo, charityId, userId) => {
-    fetch(`http://localhost:3000/requests`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem('token')
-      },
-      body: JSON.stringify({
-        user_id: userId,
-        charity_id: charityId,
-        expiration_date: requestInfo.expiration_date,
-        info: requestInfo.info,
-        status: requestInfo.status,
-        category: requestInfo.category
-      })
-    }).then(res => res.json())
-      .then(data => 
-        this.setState(prevState => ({
-          charityRequests: [...prevState.charityRequests, data.request]
-        }))
-      )
   }
   
+  addRequest = (requestInfo, charityId, userId) => {
+    api.requests.addRequest(requestInfo, charityId, userId)
+    .then(data => this.setState(prevState => ({ 
+      charityRequests: [...prevState.charityRequests, data.request]
+    })))
+  }
+
   editUser = (userInfo) => {
     fetch(`http://localhost:3000/users/${this.state.user.id}`, {
       method: "PUT",

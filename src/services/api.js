@@ -19,7 +19,7 @@ const getCurrentUser = () => {
     return fetch(`${API_ROOT}/auth/current_user`, {
         headers: headers()
     }).then(res => res.json());
-};
+}
 
 const signup = user =>
     fetch(`${API_ROOT}/users`, {
@@ -43,7 +43,7 @@ const getAdminsCharities = (userId) => {
       headers: headers()
     })
       .then(res => res.json())
-};
+}
 
 const getUserRequests = (userId) => {
     return fetch(`http://localhost:3000/users/${userId}/requests`, {
@@ -57,26 +57,56 @@ const getCharityRequests = (charityId, userId) => {
     }).then(res => res.json())
 }
 
+const addNewCharity = (charityInfo, userId) => {
+    return fetch(`http://localhost:3000/charities`, {
+      method: "POST",
+      headers: headers(),
+      body: JSON.stringify({
+        user_id: userId,
+        name: charityInfo.name,
+        image: charityInfo.image,
+        address: charityInfo.address,
+        city: charityInfo.city,
+        description: charityInfo.description
+      })
+    }).then(res => res.json())
+}
+
+const addRequest = (requestInfo, charityId, userId) => {
+    return fetch(`http://localhost:3000/requests`, {
+      method: "POST",
+      headers: headers(),
+      body: JSON.stringify({
+        user_id: userId,
+        charity_id: charityId,
+        expiration_date: requestInfo.expiration_date,
+        info: requestInfo.info,
+        status: requestInfo.status,
+        category: requestInfo.category
+      })
+    }).then(res => res.json())
+}
+
 const deleteCharity  = (id) => {
     return fetch(`http://localhost:3000/charities/${id}`, {
       method: 'DELETE',
       headers: headers()
     }).then(res =>res.json())
-  }
+}
 
-  const deleteRequest  = (id) => {
+const deleteRequest  = (id) => {
     return fetch(`http://localhost:3000/requests/${id}`, {
       method: 'DELETE',
       headers: headers()
     }).then(res =>res.json())
-  }
+}
 
-  const deleteUser  = (id) => {
+const deleteUser  = (id) => {
     return fetch(`http://localhost:3000/users/${id}`, {
       method: 'DELETE',
       headers: headers()
     }).then(res =>res.json())
-  }
+}
 
 export const api = {
     auth: {
@@ -88,11 +118,13 @@ export const api = {
     charities: {
         getCharities,
         deleteCharity,
-        getAdminsCharities
+        getAdminsCharities,
+        addNewCharity
     },
     requests: {
         deleteRequest,
         getUserRequests,
-        getCharityRequests
+        getCharityRequests,
+        addRequest
     }
 };
