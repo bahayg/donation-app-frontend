@@ -8,6 +8,7 @@ import CharitiesContainer from "./containers/CharitiesContainer";
 import CharityDetails from "./components/CharityDetails";
 import AdminsCharitiesDetails from "./components/AdminsCharitiesDetails";
 import CharityAddForm from "./components/CharityAddForm";
+import EditCharity from "./components/EditCharity";
 import AdminProfile from "./components/AdminProfile";
 import UserProfile from './components/UserProfile';
 import Footer from './components/Footer';
@@ -90,10 +91,18 @@ class App extends Component {
     .then(data => { this.setState({ user: data }) })
   }
 
-  // editCharity = () => {
-
-  // }
-
+  editCharity = (charityInfo, charityId) => {
+    api.charities.editCharity(charityInfo, charityId, this.state.user)
+    .then(data => {
+      let updatedCharity = this.state.allCharities.findIndex(charity => charity.id === charityId)
+      let copyOfCharities = Object.assign([], this.state.allCharities)
+      copyOfCharities[updatedCharity] = data
+      this.setState({
+        allCharities: copyOfCharities
+      })
+    })
+  }
+      
   editRequest = (requestInfo, requestId) => {
     api.requests.editRequest(requestInfo, requestId) 
       .then(data => {
@@ -251,6 +260,16 @@ class App extends Component {
             {...props} 
             user={this.state.user} 
             onAddNewCharity={this.addNewCharity}/>)}
+        />
+
+        <Route
+          path="/charity/edit"
+          exact
+          render={props => (<EditCharity 
+            {...props} 
+            user={this.state.user} 
+            selectedCharity={this.state.selectedCharity}
+            onEditCharity={this.editCharity}/>)}
         />
 
         <Route

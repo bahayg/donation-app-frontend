@@ -3,6 +3,7 @@ import { Button, Header, Segment, Image, Icon, Table, Grid, Popup, Modal, Form }
 import { api } from "../services/api";
 import AddRequest from './AddRequest';
 import EditRequest from './EditRequest';
+import { Link } from "react-router-dom";
 
 class AdminsCharitiesDetails extends Component {
 
@@ -71,9 +72,9 @@ class AdminsCharitiesDetails extends Component {
                                         <AddRequest user={this.props.user} closeModal={this.closeModal} selectedCharity={this.props.selectedCharity} onAddRequest={this.props.onAddRequest} /></Modal>
                                     </Grid.Column>
                                     <Grid.Column></Grid.Column>
-                                    {/* <Grid.Column>
-                                        <Button>Edit Charity</Button> 
-                                    </Grid.Column> */}
+                                    {/* <Grid.Column> */}
+                                        {/* <Button as={Link} to="/charity/edit">Edit Charity</Button>  */}
+                                    {/* </Grid.Column> */}
                                     <Grid.Column></Grid.Column>
                                     <Grid.Column>
                                         <Button floated="right" onClick={this.handleDeleteCharity}>Delete Charity</Button> 

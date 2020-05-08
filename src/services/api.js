@@ -97,6 +97,17 @@ const editUser = (userInfo, userId) => {
     }).then(res => res.json())
 }
 
+const editCharity = (charityInfo, charityId, user) => {
+  return fetch (`http://localhost:3000/users/${user.username}/charities/${charityId}`, {
+    method: "PUT",
+    headers: headers(),
+    body: JSON.stringify({
+      user_id: user.id,
+      charity: charityInfo
+    })
+  }).then(res => res.json())
+}
+
 const editRequest = (requestInfo, requestId) => {
     return fetch(`http://localhost:3000/requests/${requestId}`, {
       method: "PATCH",
@@ -177,7 +188,8 @@ export const api = {
         getCharities,
         deleteCharity,
         getAdminsCharities,
-        addNewCharity
+        addNewCharity, 
+        editCharity
     },
     requests: {
         deleteRequest,
