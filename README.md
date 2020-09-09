@@ -26,8 +26,8 @@ Features that take username, password, e-mail address, profile picture, and user
 * Go to https://github.com/bahayg/donation-app-backend and set the backend up. 
 * Fork and clone this repository.
 * Navigate to the top level of the cloned directory.
-* Run npm install
-* Run npm start
+* Run `npm install`
+* Run `npm start`
 * Open your preferred web browser by navigating to "http://localhost:3001" to view it.
 * Create your account.
 
