@@ -1,4 +1,4 @@
-const API_ROOT = `http://localhost:3000/`;
+const API_ROOT = `https://fathomless-journey-52654.herokuapp.com/`;
 
 const token = () => localStorage.getItem("token");
 
