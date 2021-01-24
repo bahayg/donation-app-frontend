@@ -1,4 +1,5 @@
 const API_ROOT = process.env.BACKEND_URL;
+console.log(API_ROOT);
 
 const token = () => localStorage.getItem("token");
 
