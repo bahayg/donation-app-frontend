@@ -1,4 +1,4 @@
-const API_ROOT = `https://blooming-meadow-26833.herokuapp.com/`;
+const API_ROOT = `http://localhost:3000/`;
 
 const token = () => localStorage.getItem("token");
 
@@ -151,7 +151,7 @@ const editRequestStatusAndId = (request, status, userId) => {
 };
 
 const deleteCharity = (id) => {
-  return fetch(`h${API_ROOT}/charities/${id}`, {
+  return fetch(`${API_ROOT}/charities/${id}`, {
     method: "DELETE",
     headers: headers(),
   }).then((res) => res.json());
