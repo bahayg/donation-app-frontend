@@ -1,5 +1,4 @@
-const API_ROOT = process.env.BACKEND_URL;
-console.log(API_ROOT);
+const API_ROOT = process.env.REACT_APP_BACKEND_URL;
 
 const token = () => localStorage.getItem("token");
 
