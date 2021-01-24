@@ -1,5 +1,4 @@
-const API_ROOT = process.env.REACT_APP_BACKEND_URL;
-console.log(process.env);
+const API_ROOT = `https://fathomless-journey-52654.herokuapp.com/`;
 
 const token = () => localStorage.getItem("token");
 

@@ -129,8 +129,6 @@ function checkValidServiceWorker(swUrl, config) {
 }
 
 export function unregister() {
-  console.log(process.env);
-
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.ready
       .then((registration) => {
