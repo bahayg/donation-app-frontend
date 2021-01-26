@@ -5,6 +5,7 @@
 //const API_ROOT = process.env.REACT_APP_BASE_URL || "http://localhost:3000/";
 
 // const API_ROOT = `http://localhost:3000`;
+console.log("Database_URL", process.env.DATABASE_URL);
 
 const API_ROOT = `https://fathomless-journey-52654.herokuapp.com/`;
 
