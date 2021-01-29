@@ -82,14 +82,16 @@ button.ui.large.fluid.button {
   text-shadow: none;
   background-image: none;
 }
-/* 
-html {
-  font-size: 16px;
-} */
 
 .ui[class*="three column"].grid > .column:not(.row),
 .ui[class*="three column"].grid > .row > .column {
   width: auto !important;
+}
+
+.ui {
+  display: block;
+  float: none;
+  width: auto;
 }
 
 .ui[class*="center aligned"].grid {
