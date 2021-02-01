@@ -15,13 +15,7 @@ class CharityCard extends Component {
         as={NavLink}
         to={`${this.props.charity.city}/${this.props.charity.id}`}
       >
-        <Card.Content
-          style={{
-            backgroundColor: "#84A98C",
-            textAlign: "left",
-            fontSize: "100%",
-          }}
-        >
+        <Card.Content style={{ backgroundColor: "#84A98C" }}>
           <Card.Header>{this.props.charity.name}</Card.Header>
         </Card.Content>
         <Card.Content

@@ -62,7 +62,7 @@ class AdminsCharitiesDetails extends Component {
       <>
         {/* <Link to={`charities/${this.props.selectedCharity.city}/${this.props.selectedCharity.id}`} />   */}
         <Segment placeholder>
-          <Grid columns={2}>
+          <Grid columns={2} stackable={true}>
             <Grid.Row>
               <Grid.Column>
                 <Image size="medium" src={image} />
@@ -137,7 +137,17 @@ class AdminsCharitiesDetails extends Component {
           </Header>
         </Segment>
 
-        <Table celled color={"green"}>
+        <Table
+          unstackable
+          style={{
+            overflow: "auto",
+            display: "block",
+            //maxHeight: "inherit",
+            //width: "100%",
+          }}
+          celled
+          color={"green"}
+        >
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Expires</Table.HeaderCell>
@@ -150,7 +160,7 @@ class AdminsCharitiesDetails extends Component {
                   inverted
                   trigger={<Button icon="help circle" />}
                 >
-                  <Grid centered divided columns={4}>
+                  <Grid centered divided columns={4} stackable={true}>
                     <Grid.Column textAlign="center">
                       <Header as="h3" color="green">
                         open
@@ -222,8 +232,10 @@ class AdminsCharitiesDetails extends Component {
                           this.handleStatusClick(request, "approved")
                         }
                         floated="right"
-                        inverted
-                        color="brown"
+                        color="green"
+                        size="small"
+                        compact
+                        circular
                       >
                         Approve
                       </Button>
@@ -238,8 +250,10 @@ class AdminsCharitiesDetails extends Component {
                           this.handleStatusClick(request, "closed")
                         }
                         floated="right"
-                        inverted
                         color="red"
+                        size="small"
+                        compact
+                        circular
                       >
                         Close
                       </Button>

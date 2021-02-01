@@ -55,7 +55,7 @@ html {
   font-size: 100%;
 }
 
-@media (min-width: 640px) {
+/* @media (min-width: 640px) {
   body {
     font-size: 1rem;
   }
@@ -68,6 +68,17 @@ html {
 @media (min-width: 1100px) {
   body {
     font-size: 1.5rem;
+  }
+} */
+
+@media screen and (min-width: 320px) {
+  html {
+    font-size: calc(16px + 6 * ((100vw - 320px) / 680));
+  }
+}
+@media screen and (min-width: 1000px) {
+  html {
+    font-size: 22px;
   }
 }
 
@@ -86,12 +97,6 @@ button.ui.large.fluid.button {
 .ui[class*="three column"].grid > .column:not(.row),
 .ui[class*="three column"].grid > .row > .column {
   width: auto !important;
-}
-
-.ui {
-  display: block;
-  float: none;
-  width: auto;
 }
 
 .ui[class*="center aligned"].grid {
@@ -119,22 +124,24 @@ li {
 }
 
 .city-dropdown.ui.dropdown .menu > .item:first-child {
-  font-size: medium;
+  font-size: 50%;
 }
 
 .ui.dropdown.city-dropdown > .text {
   display: inline-block;
-  font-size: 24px;
+  font-size: 100%;
   font-weight: 900;
-  padding-bottom: 1rem;
+  padding: 0.5rem;
+  color: rgb(3, 3, 3);
+  background-color: rgb(255, 255, 255);
 }
 
 .city-dropdown.ui.dropdown .menu {
-  padding-left: 1rem;
-  padding-right: 4rem;
+  padding-left: 0.5rem;
+  padding-right: 0.8rem;
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
-  background: #f7f0f0;
+  background: #f5864b;
   font-size: 2em;
   text-shadow: none;
   text-align: left;

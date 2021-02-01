@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Container } from 'semantic-ui-react'
+import { Card, Container } from "semantic-ui-react";
 import CharityCard from "../components/CharityCard";
 
 class CharitiesContainer extends Component {
@@ -10,9 +10,9 @@ class CharitiesContainer extends Component {
   //     charities: []
   //   };
 
-    // this.handleDelete = this.handleDelete.bind(this);
-    // this.handleVote = this.handleVote.bind(this);
-  
+  // this.handleDelete = this.handleDelete.bind(this);
+  // this.handleVote = this.handleVote.bind(this);
+
   // componentDidMount() {
   //   if (!localStorage.getItem("token")) {
   //     this.props.history.push("/login");
@@ -37,21 +37,29 @@ class CharitiesContainer extends Component {
   // }
 
   charityCards = () => {
-    return  this.props.charityList.map ((charity, index) => {
-    return <CharityCard key={index} style={{ paddingRight:"10px", paddingTop:"10px" }} onShowCharityDetails={this.props.onShowCharityDetails} onGetCharityRequests={this.props.onGetCharityRequests} charity={charity}/>
-    })
-  }
+    return this.props.charityList.map((charity, index) => {
+      return (
+        <CharityCard
+          key={index}
+          style={{ paddingRight: "10px", paddingTop: "10px" }}
+          onShowCharityDetails={this.props.onShowCharityDetails}
+          onGetCharityRequests={this.props.onGetCharityRequests}
+          charity={charity}
+        />
+      );
+    });
+  };
 
   render() {
-    return(
+    return (
       <>
-      <Container style={{padding: '40px'}}>
-        <Card.Group centered itemsPerRow={3}>
-          {this.charityCards()}
-        </Card.Group>
-      </Container>
+        <Container style={{ padding: "40px" }}>
+          <Card.Group centered stackable={true} itemsPerRow={3}>
+            {this.charityCards()}
+          </Card.Group>
+        </Container>
       </>
-    )
+    );
   }
 }
 

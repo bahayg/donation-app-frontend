@@ -6,7 +6,14 @@ class NavBar extends Component {
   render() {
     return (
       <div>
-        <Image size="medium" src="/LogoV2.png" centered />
+        <Image
+          size="medium"
+          src="/LogoV2.png"
+          as={NavLink}
+          to="/home"
+          centered
+          style={{ display: "block" }}
+        />
 
         <Menu
           pointing
