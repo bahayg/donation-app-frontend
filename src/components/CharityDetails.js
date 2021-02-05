@@ -57,29 +57,46 @@ class CharityDetails extends Component {
         </Segment>
 
         <Segment>
-          <Header as="h2" textAlign="center">
+          <Header as="h3" textAlign="center">
             Current List of Requests by {`${this.props.selectedCharity.name}`}
           </Header>
         </Segment>
 
         <Table
           unstackable
-          //   style={{
-          //     overflow: "auto",
-          //     display: "inline-block",
-          //     maxHeight: "inherit",
-          //   }}
+          style={{
+            overflow: "auto",
+            display: "inline-block",
+            maxHeight: "inherit",
+            whiteSpace: "nowrap",
+            tableLayout: "auto",
+          }}
           celled
           color={"blue"}
         >
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Expires</Table.HeaderCell>
-              <Table.HeaderCell>Category</Table.HeaderCell>
-              <Table.HeaderCell>Info</Table.HeaderCell>
-              <Table.HeaderCell>
+              <Table.HeaderCell style={{ width: "15%" }}>
+                Expires
+              </Table.HeaderCell>
+              <Table.HeaderCell style={{ width: "15%" }}>
+                Category
+              </Table.HeaderCell>
+              <Table.HeaderCell style={{ width: "30%" }}>Info</Table.HeaderCell>
+              <Table.HeaderCell style={{ width: "40%" }}>
                 Status
-                <Popup wide inverted trigger={<Button icon="help circle" />}>
+                <Popup
+                  wide
+                  inverted
+                  trigger={
+                    <Icon
+                      name="help circle"
+                      size="large"
+                      color="purple"
+                      style={{ marginLeft: "8px" }}
+                    />
+                  }
+                >
                   <Grid centered divided columns={2} stackable={true}>
                     <Grid.Column textAlign="center">
                       <Header as="h3" color="green">

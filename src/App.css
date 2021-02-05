@@ -51,9 +51,9 @@ img {
 }
 
 /* Typography */
-html {
+/* html {
   font-size: 100%;
-}
+} */
 
 /* @media (min-width: 640px) {
   body {
@@ -71,7 +71,7 @@ html {
   }
 } */
 
-@media screen and (min-width: 320px) {
+/* @media screen and (min-width: 320px) {
   html {
     font-size: calc(16px + 6 * ((100vw - 320px) / 680));
   }
@@ -80,7 +80,7 @@ html {
   html {
     font-size: 22px;
   }
-}
+} */
 
 img.ui.medium.image {
   margin: auto;

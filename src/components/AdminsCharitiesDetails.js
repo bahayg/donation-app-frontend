@@ -132,7 +132,7 @@ class AdminsCharitiesDetails extends Component {
         </Segment>
 
         <Segment>
-          <Header as="h2" textAlign="center">
+          <Header as="h3" textAlign="center">
             Current List of Requests by {`${this.props.selectedCharity.name}`}
           </Header>
         </Segment>
@@ -141,24 +141,36 @@ class AdminsCharitiesDetails extends Component {
           unstackable
           style={{
             overflow: "auto",
-            display: "block",
-            //maxHeight: "inherit",
-            //width: "100%",
+            display: "inline-block",
+            maxHeight: "inherit",
+            width: "100%",
+            whiteSpace: "nowrap",
           }}
           celled
           color={"green"}
         >
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Expires</Table.HeaderCell>
-              <Table.HeaderCell>Category</Table.HeaderCell>
-              <Table.HeaderCell>Info</Table.HeaderCell>
-              <Table.HeaderCell>
+              <Table.HeaderCell style={{ width: "15%" }}>
+                Expires
+              </Table.HeaderCell>
+              <Table.HeaderCell style={{ width: "15%" }}>
+                Category
+              </Table.HeaderCell>
+              <Table.HeaderCell style={{ width: "25%" }}>Info</Table.HeaderCell>
+              <Table.HeaderCell style={{ width: "25%" }}>
                 Status
                 <Popup
                   wide="very"
                   inverted
-                  trigger={<Button icon="help circle" />}
+                  trigger={
+                    <Icon
+                      name="help circle"
+                      size="large"
+                      color="purple"
+                      style={{ marginLeft: "8px" }}
+                    />
+                  }
                 >
                   <Grid centered divided columns={4} stackable={true}>
                     <Grid.Column textAlign="center">
@@ -200,8 +212,10 @@ class AdminsCharitiesDetails extends Component {
                   </Grid>
                 </Popup>
               </Table.HeaderCell>
-              <Table.HeaderCell>Edit</Table.HeaderCell>
-              <Table.HeaderCell>Delete</Table.HeaderCell>
+              <Table.HeaderCell style={{ width: "10%" }}>Edit</Table.HeaderCell>
+              <Table.HeaderCell style={{ width: "10%" }}>
+                Delete
+              </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
 

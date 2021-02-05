@@ -108,8 +108,9 @@ class UserProfile extends Component {
         </Segment>
 
         <Segment>
-          <Header as="h2" textAlign="center">
-            Current List of Requests
+          <Header as="h3" textAlign="center">
+            Current List of Requests that {`${this.props.user.username}`}{" "}
+            Selected
           </Header>
         </Segment>
 
@@ -119,19 +120,38 @@ class UserProfile extends Component {
             overflow: "auto",
             display: "inline-block",
             maxHeight: "inherit",
+            width: "100%",
+            whiteSpace: "nowrap",
           }}
           celled
           color={"orange"}
         >
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Expires</Table.HeaderCell>
-              <Table.HeaderCell>Category</Table.HeaderCell>
-              <Table.HeaderCell>Charity Name</Table.HeaderCell>
-              <Table.HeaderCell>Info</Table.HeaderCell>
-              <Table.HeaderCell>
+              <Table.HeaderCell style={{ width: "10%" }}>
+                Expires
+              </Table.HeaderCell>
+              <Table.HeaderCell style={{ width: "15%" }}>
+                Category
+              </Table.HeaderCell>
+              <Table.HeaderCell style={{ width: "25%" }}>
+                Charity Name
+              </Table.HeaderCell>
+              <Table.HeaderCell style={{ width: "25%" }}>Info</Table.HeaderCell>
+              <Table.HeaderCell style={{ width: "25%" }}>
                 Status
-                <Popup wide inverted trigger={<Button icon="help circle" />}>
+                <Popup
+                  wide
+                  inverted
+                  trigger={
+                    <Icon
+                      name="help circle"
+                      size="large"
+                      color="purple"
+                      style={{ marginLeft: "8px" }}
+                    />
+                  }
+                >
                   <Grid centered divided columns={3} stackable={true}>
                     <Grid.Column textAlign="center">
                       <Header as="h3" color="orange">
