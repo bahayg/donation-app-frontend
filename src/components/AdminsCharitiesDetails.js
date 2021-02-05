@@ -151,14 +151,16 @@ class AdminsCharitiesDetails extends Component {
         >
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell style={{ width: "15%" }}>
+              <Table.HeaderCell style={{ width: "150px" }}>
                 Expires
               </Table.HeaderCell>
-              <Table.HeaderCell style={{ width: "15%" }}>
+              <Table.HeaderCell style={{ width: "200px" }}>
                 Category
               </Table.HeaderCell>
-              <Table.HeaderCell style={{ width: "25%" }}>Info</Table.HeaderCell>
-              <Table.HeaderCell style={{ width: "25%" }}>
+              <Table.HeaderCell style={{ width: "400px" }}>
+                Info
+              </Table.HeaderCell>
+              <Table.HeaderCell style={{ width: "400px" }}>
                 Status
                 <Popup
                   wide="very"
@@ -172,7 +174,13 @@ class AdminsCharitiesDetails extends Component {
                     />
                   }
                 >
-                  <Grid centered divided columns={4} stackable={true}>
+                  <Grid
+                    centered
+                    divided
+                    columns={4}
+                    stackable={true}
+                    style={{ width: "100%" }}
+                  >
                     <Grid.Column textAlign="center">
                       <Header as="h3" color="green">
                         open
@@ -212,8 +220,10 @@ class AdminsCharitiesDetails extends Component {
                   </Grid>
                 </Popup>
               </Table.HeaderCell>
-              <Table.HeaderCell style={{ width: "10%" }}>Edit</Table.HeaderCell>
-              <Table.HeaderCell style={{ width: "10%" }}>
+              <Table.HeaderCell style={{ width: "150px" }}>
+                Edit
+              </Table.HeaderCell>
+              <Table.HeaderCell style={{ width: "150px" }}>
                 Delete
               </Table.HeaderCell>
             </Table.Row>

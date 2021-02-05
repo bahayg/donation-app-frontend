@@ -68,22 +68,24 @@ class CharityDetails extends Component {
             overflow: "auto",
             display: "inline-block",
             maxHeight: "inherit",
+            width: "100%",
             whiteSpace: "nowrap",
-            tableLayout: "auto",
           }}
           celled
           color={"blue"}
         >
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell style={{ width: "15%" }}>
+              <Table.HeaderCell style={{ width: "250px" }}>
                 Expires
               </Table.HeaderCell>
-              <Table.HeaderCell style={{ width: "15%" }}>
+              <Table.HeaderCell style={{ width: "300px" }}>
                 Category
               </Table.HeaderCell>
-              <Table.HeaderCell style={{ width: "30%" }}>Info</Table.HeaderCell>
-              <Table.HeaderCell style={{ width: "40%" }}>
+              <Table.HeaderCell style={{ width: "500px" }}>
+                Info
+              </Table.HeaderCell>
+              <Table.HeaderCell style={{ width: "400px" }}>
                 Status
                 <Popup
                   wide
@@ -97,7 +99,13 @@ class CharityDetails extends Component {
                     />
                   }
                 >
-                  <Grid centered divided columns={2} stackable={true}>
+                  <Grid
+                    centered
+                    divided
+                    columns={2}
+                    stackable={true}
+                    style={{ width: "100%" }}
+                  >
                     <Grid.Column textAlign="center">
                       <Header as="h3" color="green">
                         open

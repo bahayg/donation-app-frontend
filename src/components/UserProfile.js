@@ -152,7 +152,13 @@ class UserProfile extends Component {
                     />
                   }
                 >
-                  <Grid centered divided columns={3} stackable={true}>
+                  <Grid
+                    centered
+                    divided
+                    columns={3}
+                    stackable={true}
+                    style={{ width: "100%" }}
+                  >
                     <Grid.Column textAlign="center">
                       <Header as="h3" color="orange">
                         pending
