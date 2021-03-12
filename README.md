@@ -42,14 +42,15 @@ React.js, JavaScript, Ruby, Ruby on Rails, ActiveRecord, PostgreSQL, JWT, Semant
 
 ## Links
 
-Watch the Demo:
-[![Demo](RH_thumbnail.png)](https://youtu.be/P3CpGR8q9cw)
-
-<!-- Watch the [Demo](https://youtu.be/P3CpGR8q9cw) -->
-
 Try it [Live](http://reunitedhands.bahaygb.com/)
 
 Go to [Backend Repo](https://github.com/bahayg/donation-app-backend)
+
+Watch the Demo:
+
+[![Demo](RH_thumbnail.png)](https://youtu.be/P3CpGR8q9cw)
+
+<!-- Watch the [Demo](https://youtu.be/P3CpGR8q9cw) -->
 
 ## Support and Contact Details
 
